@@ -18,6 +18,6 @@
   ],
   "vars": {
     "OPENAI_MODEL": "gpt-6-astra",
-    "ALLOWED_ORIGINS": "http://localhost:3000"
+    "ALLOWED_ORIGINS": "https://masterconfig.vercel.app"
   }
 }
