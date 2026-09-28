@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {createQuickRules} from '../src/rule-builder.js';
+import {blocked,issues,validateModel} from '../src/engine.js';
+import {getProposal,makeRequest} from '../server/ai.mjs';
+const seed=JSON.parse(fs.readFileSync(new URL('../src/switch-profile.json',import.meta.url)));
+const model=()=>({...structuredClone(seed),rules:[],defaultValues:{}});
+test('quick exclusions block both selection orders for enclosure and multi option',()=>{const m=model();m.rules=createQuickRules(m,'enclosure','B7','exclude','options','XPK','Pilot light unavailable');assert.deepEqual(validateModel(m),[]);assert.equal(blocked(m,{enclosure:'B7',options:[]},'options','XPK').length,1);assert.equal(blocked(m,{options:['XPK']},'enclosure','B7').length,1)});
+test('quick requirement reports missing option and clears when satisfied',()=>{const m=model();m.rules=createQuickRules(m,'enclosure','B4','require','options','XPK','Pilot light required');assert(issues(m,{enclosure:'B4',options:[]}).includes('Pilot light required'));assert(!issues(m,{enclosure:'B4',options:['XPK']}).includes('Pilot light required'));assert.throws(()=>createQuickRules(m,'enclosure','B4','exclude','enclosure','B4',''))});
+test('rules-only AI discards unrelated model edits and keeps validation',async()=>{const m=model(),proposed=structuredClone(m);proposed.fields=[];proposed.steps=[];proposed.name='Unwanted rename';proposed.rules=createQuickRules(m,'enclosure','B7','exclude','options','XPK','Pilot light unavailable');const request=async()=>new Response(JSON.stringify({status:'completed',output_text:JSON.stringify({reply:'Proposed rules',questions:[],proposal_json:JSON.stringify(proposed)})}));const r=await getProposal({model:m,message:'Block B7 with XPK',scope:'rules'},{OPENAI_API_KEY:'test'},request);assert.deepEqual(r.proposal.fields,m.fields);assert.deepEqual(r.proposal.steps,m.steps);assert.equal(r.proposal.name,m.name);assert.equal(r.proposal.rules.length,2);assert.equal(r.proposal.status,'draft');assert(makeRequest({model:m,message:'Block B7 with XPK',scope:'rules'}).instructions.includes('RULES-ONLY REQUEST'));});

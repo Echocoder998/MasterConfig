@@ -1,0 +1,2806 @@
+{
+  "schemaVersion": 1,
+  "models": [
+    {
+      "id": "ashcroft-1279",
+      "name": "1279 Duragauge®",
+      "manufacturer": "Ashcroft",
+      "subtitle": "4½″ process pressure gauge · Phenolic case",
+      "baseCode": "451279",
+      "revision": "Rev U · March 26, 2026",
+      "status": "active",
+      "sourceName": "Ashcroft 1279 datasheet",
+      "sourceUrl": "datasheet.pdf",
+      "notes": "Pilot scope: psi single scales, core construction and selected common options. Application suitability, assemblies, other scales and unlisted options require sales review.",
+      "steps": [
+        {
+          "id": "range",
+          "label": "Pressure range",
+          "fields": [
+            "range"
+          ]
+        },
+        {
+          "id": "material",
+          "label": "System material",
+          "fields": [
+            "material"
+          ]
+        },
+        {
+          "id": "case",
+          "label": "Case & fill",
+          "fields": [
+            "case",
+            "fill"
+          ]
+        },
+        {
+          "id": "connection",
+          "label": "Process connection",
+          "fields": [
+            "connection",
+            "location"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options & certificates",
+          "fields": [
+            "options",
+            "certificates"
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "id": "range",
+          "label": "Pressure range",
+          "type": "single",
+          "required": true,
+          "codeOrder": 6,
+          "prefix": "",
+          "options": [
+            {
+              "code": "30IMV",
+              "label": "Vacuum",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "V/15#",
+              "label": "Vacuum to 15 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "V/30#",
+              "label": "Vacuum to 30 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "V/60#",
+              "label": "Vacuum to 60 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "V/100#",
+              "label": "Vacuum to 100 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "15#",
+              "label": "0–15 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "20#",
+              "label": "0–20 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "30#",
+              "label": "0–30 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "60#",
+              "label": "0–60 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "100#",
+              "label": "0–100 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "120#",
+              "label": "0–120 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "160#",
+              "label": "0–160 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "200#",
+              "label": "0–200 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "300#",
+              "label": "0–300 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "400#",
+              "label": "0–400 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "500#",
+              "label": "0–500 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "600#",
+              "label": "0–600 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "800#",
+              "label": "0–800 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "1000#",
+              "label": "0–1,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "1500#",
+              "label": "0–1,500 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "2000#",
+              "label": "0–2,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "3000#",
+              "label": "0–3,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "4000#",
+              "label": "0–4,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "5000#",
+              "label": "0–5,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "6000#",
+              "label": "0–6,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "8000#",
+              "label": "0–8,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "10000#",
+              "label": "0–10,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "15000#",
+              "label": "0–15,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "20000#",
+              "label": "0–20,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            },
+            {
+              "code": "30000#",
+              "label": "0–30,000 psi",
+              "description": "psi single scale",
+              "sourcePage": 5
+            }
+          ]
+        },
+        {
+          "id": "material",
+          "label": "System material",
+          "type": "single",
+          "required": true,
+          "codeOrder": 1,
+          "prefix": "",
+          "options": [
+            {
+              "code": "A",
+              "label": "Bronze / brass",
+              "description": "Bronze tube · Brass connection · Max 1,000 psi",
+              "sourcePage": 2
+            },
+            {
+              "code": "S",
+              "label": "Stainless steel",
+              "description": "316 SS tube · 316L SS connection · Max 20,000 psi",
+              "sourcePage": 2
+            },
+            {
+              "code": "R",
+              "label": "Stainless / steel",
+              "description": "316L SS tube · Steel connection · Max 20,000 psi",
+              "sourcePage": 2
+            },
+            {
+              "code": "P",
+              "label": "Monel®",
+              "description": "K-Monel 500 tube · Monel 400 connection · Max 30,000 psi",
+              "sourcePage": 2
+            }
+          ]
+        },
+        {
+          "id": "case",
+          "label": "Case design",
+          "type": "single",
+          "required": true,
+          "codeOrder": 2,
+          "prefix": "",
+          "options": [
+            {
+              "code": "S",
+              "label": "Dry",
+              "description": "Solid front · Weather-protected environments",
+              "sourcePage": 2
+            },
+            {
+              "code": "SH",
+              "label": "Hermetically sealed",
+              "description": "Dry, field fillable · IP66 · Plastic window standard",
+              "sourcePage": 2
+            },
+            {
+              "code": "SL",
+              "label": "Liquid filled",
+              "description": "IP66 · Glycerin standard · Acrylic window standard",
+              "sourcePage": 2
+            }
+          ]
+        },
+        {
+          "id": "fill",
+          "label": "Case fill",
+          "type": "single",
+          "required": true,
+          "codeOrder": 5,
+          "prefix": "X",
+          "visibleWhen": [
+            {
+              "field": "case",
+              "op": "eq",
+              "value": "SL"
+            }
+          ],
+          "options": [
+            {
+              "code": "glycerin",
+              "label": "Glycerin",
+              "description": "Standard liquid fill",
+              "sourcePage": 2,
+              "orderCode": ""
+            },
+            {
+              "code": "GV",
+              "label": "Silicone",
+              "description": "Optional liquid fill · XGV",
+              "sourcePage": 2
+            },
+            {
+              "code": "GX",
+              "label": "Halocarbon®",
+              "description": "Optional liquid fill · XGX",
+              "sourcePage": 2
+            }
+          ]
+        },
+        {
+          "id": "connection",
+          "label": "Process connection",
+          "type": "single",
+          "required": true,
+          "codeOrder": 3,
+          "prefix": "",
+          "options": [
+            {
+              "code": "02",
+              "label": "¼ NPT male",
+              "description": "Available through 20,000 psi",
+              "sourcePage": 2
+            },
+            {
+              "code": "04",
+              "label": "½ NPT male",
+              "description": "Available through 20,000 psi",
+              "sourcePage": 2
+            },
+            {
+              "code": "09",
+              "label": "9⁄16–18 UNF-2B",
+              "description": "Aminco high-pressure fitting · Standard above 20,000 psi",
+              "sourcePage": 2
+            },
+            {
+              "code": "AM",
+              "label": "AND 10050-4",
+              "description": "¼ tubing connection · Pressure suitability needs review",
+              "sourcePage": 2
+            },
+            {
+              "code": "RW",
+              "label": "SAE 7⁄16 & 20",
+              "description": "Straight thread · Pressure suitability needs review",
+              "sourcePage": 2
+            }
+          ]
+        },
+        {
+          "id": "location",
+          "label": "Connection location",
+          "type": "single",
+          "required": true,
+          "codeOrder": 4,
+          "prefix": "",
+          "options": [
+            {
+              "code": "L",
+              "label": "Lower",
+              "description": "6 o’clock",
+              "sourcePage": 2
+            },
+            {
+              "code": "B",
+              "label": "Back",
+              "description": "Rear connection",
+              "sourcePage": 2
+            },
+            {
+              "code": "D",
+              "label": "Right side",
+              "description": "3 o’clock",
+              "sourcePage": 2
+            },
+            {
+              "code": "E",
+              "label": "Left side",
+              "description": "9 o’clock",
+              "sourcePage": 2
+            },
+            {
+              "code": "T",
+              "label": "Top",
+              "description": "12 o’clock",
+              "sourcePage": 2
+            }
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options",
+          "type": "multi",
+          "required": false,
+          "codeOrder": 5,
+          "prefix": "X",
+          "options": [
+            {
+              "code": "LL",
+              "label": "PLUS!™ Performance",
+              "description": "Dampening",
+              "sourcePage": 2
+            },
+            {
+              "code": "NZ",
+              "label": "PLUS! silicone free",
+              "description": "Dampening",
+              "sourcePage": 2
+            },
+            {
+              "code": "ND",
+              "label": "PLUS! silicone free, filled case",
+              "description": "Dampening",
+              "sourcePage": 2
+            },
+            {
+              "code": "TB",
+              "label": "Tip bleed",
+              "description": "Tube & linkage",
+              "sourcePage": 2
+            },
+            {
+              "code": "RJ",
+              "label": "Slotted link · sudden increase",
+              "description": "Tube & linkage",
+              "sourcePage": 3
+            },
+            {
+              "code": "S4",
+              "label": "Slotted link · sudden decrease",
+              "description": "Tube & linkage",
+              "sourcePage": 3
+            },
+            {
+              "code": "PD",
+              "label": "Acrylic window",
+              "description": "Window & pointer",
+              "sourcePage": 3
+            },
+            {
+              "code": "SG",
+              "label": "Safety glass",
+              "description": "Window & pointer",
+              "sourcePage": 3
+            },
+            {
+              "code": "NG",
+              "label": "Non-glare glass",
+              "description": "Window & pointer",
+              "sourcePage": 3
+            },
+            {
+              "code": "EP",
+              "label": "Maximum pointer, adjustable",
+              "description": "Window & pointer",
+              "sourcePage": 3
+            },
+            {
+              "code": "EO",
+              "label": "Red set hand, adjustable",
+              "description": "Window & pointer",
+              "sourcePage": 3
+            },
+            {
+              "code": "EQ",
+              "label": "Minimum pointer, adjustable",
+              "description": "Window & pointer",
+              "sourcePage": 3
+            },
+            {
+              "code": "SH",
+              "label": "Red set hand, stationary",
+              "description": "Window & pointer",
+              "sourcePage": 3
+            },
+            {
+              "code": "C3",
+              "label": "Material certificate EN 10204 3.1",
+              "description": "Testing & certificates",
+              "sourcePage": 3
+            },
+            {
+              "code": "C4",
+              "label": "Traceable calibration certificate",
+              "description": "Testing & certificates",
+              "sourcePage": 3
+            },
+            {
+              "code": "WO",
+              "label": "Wetted parts of western origin",
+              "description": "Testing & certificates",
+              "sourcePage": 3
+            },
+            {
+              "code": "D3",
+              "label": "DuraVis™ retroreflective dial",
+              "description": "Special dial",
+              "sourcePage": 4
+            },
+            {
+              "code": "T1",
+              "label": "Test gauge dial and pointer",
+              "description": "Special dial",
+              "sourcePage": 4
+            }
+          ]
+        },
+        {
+          "id": "certificates",
+          "label": "Separate certificates",
+          "type": "multi",
+          "required": false,
+          "codeOrder": 0,
+          "prefix": "",
+          "options": [
+            {
+              "code": "CD-1",
+              "label": "Standard certificate of conformance",
+              "description": "",
+              "sourcePage": 4
+            },
+            {
+              "code": "CD-1A",
+              "label": "Non-standard certificate of conformance",
+              "description": "",
+              "sourcePage": 4
+            },
+            {
+              "code": "CD-4",
+              "label": "Traceable recalibration chart",
+              "description": "",
+              "sourcePage": 4
+            },
+            {
+              "code": "CD-5",
+              "label": "NACE compliance certificate",
+              "description": "",
+              "sourcePage": 4
+            },
+            {
+              "code": "CD-6",
+              "label": "Typical material certificate EN 10204 2.2",
+              "description": "",
+              "sourcePage": 4
+            },
+            {
+              "code": "CD-25",
+              "label": "As-received / as-shipped recalibration charts",
+              "description": "",
+              "sourcePage": 4
+            }
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "id": "r1",
+          "when": [
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "1500#",
+                "2000#",
+                "3000#",
+                "4000#",
+                "5000#",
+                "6000#",
+                "8000#",
+                "10000#",
+                "15000#",
+                "20000#",
+                "30000#"
+              ]
+            }
+          ],
+          "targetField": "material",
+          "targetCodes": [
+            "A"
+          ],
+          "action": "exclude",
+          "message": "This material is limited to 1,000 psi.",
+          "sourcePage": 2
+        },
+        {
+          "id": "r2",
+          "when": [
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "30000#"
+              ]
+            }
+          ],
+          "targetField": "material",
+          "targetCodes": [
+            "S"
+          ],
+          "action": "exclude",
+          "message": "This material is limited to 20,000 psi.",
+          "sourcePage": 2
+        },
+        {
+          "id": "r3",
+          "when": [
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "30000#"
+              ]
+            }
+          ],
+          "targetField": "material",
+          "targetCodes": [
+            "R"
+          ],
+          "action": "exclude",
+          "message": "This material is limited to 20,000 psi.",
+          "sourcePage": 2
+        },
+        {
+          "id": "r4",
+          "when": [
+            {
+              "field": "range",
+              "op": "eq",
+              "value": "30000#"
+            }
+          ],
+          "targetField": "connection",
+          "targetCodes": [
+            "02",
+            "04"
+          ],
+          "action": "exclude",
+          "message": "NPT connections are unavailable above 20,000 psi.",
+          "sourcePage": 2
+        },
+        {
+          "id": "r5",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "LL"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "NZ",
+            "ND"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r6",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "NZ"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "LL",
+            "ND"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r7",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "ND"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "LL",
+            "NZ"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r8",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "RJ"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "S4"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r9",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "S4"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "RJ"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r10",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "PD"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "SG",
+            "NG"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r11",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "SG"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "PD",
+            "NG"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r12",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "NG"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "PD",
+            "SG"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r13",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "EP"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "EO",
+            "EQ"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r14",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "EO"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "EP",
+            "EQ"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r15",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "EQ"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "EP",
+            "EO"
+          ],
+          "action": "exclude",
+          "message": "Choose one option in this group.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r16",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "LL"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "RJ",
+            "S4"
+          ],
+          "action": "exclude",
+          "message": "Slotted links are unavailable with PLUS! Performance.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r17",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "NZ"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "RJ",
+            "S4"
+          ],
+          "action": "exclude",
+          "message": "Slotted links are unavailable with PLUS! Performance.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r18",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "ND"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "RJ",
+            "S4"
+          ],
+          "action": "exclude",
+          "message": "Slotted links are unavailable with PLUS! Performance.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r19",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "RJ"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "LL",
+            "NZ",
+            "ND"
+          ],
+          "action": "exclude",
+          "message": "PLUS! Performance is unavailable with slotted links.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r20",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "S4"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "LL",
+            "NZ",
+            "ND"
+          ],
+          "action": "exclude",
+          "message": "PLUS! Performance is unavailable with slotted links.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r21",
+          "when": [
+            {
+              "field": "case",
+              "op": "neq",
+              "value": "SL"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "ND"
+          ],
+          "action": "exclude",
+          "message": "ND requires a glycerin- or silicone-filled case.",
+          "sourcePage": 2
+        },
+        {
+          "id": "r22",
+          "when": [
+            {
+              "field": "fill",
+              "op": "eq",
+              "value": "GX"
+            },
+            {
+              "field": "case",
+              "op": "eq",
+              "value": "SL"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "ND"
+          ],
+          "action": "exclude",
+          "message": "ND cannot use Halocarbon fill.",
+          "sourcePage": 2
+        },
+        {
+          "id": "r23",
+          "when": [
+            {
+              "field": "material",
+              "op": "neq",
+              "value": "S"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "TB"
+          ],
+          "action": "exclude",
+          "message": "Tip bleed requires S system material.",
+          "sourcePage": 2
+        },
+        {
+          "id": "r24",
+          "when": [
+            {
+              "field": "case",
+              "op": "neq",
+              "value": "S"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "TB"
+          ],
+          "action": "exclude",
+          "message": "Tip bleed requires dry S case.",
+          "sourcePage": 2
+        },
+        {
+          "id": "r25",
+          "when": [
+            {
+              "field": "case",
+              "op": "in",
+              "value": [
+                "SL",
+                "SH"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "NG"
+          ],
+          "action": "exclude",
+          "message": "Non-glare glass is unavailable with filled or hermetically sealed cases.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r26",
+          "when": [
+            {
+              "field": "case",
+              "op": "eq",
+              "value": "SL"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "EP",
+            "EO",
+            "EQ"
+          ],
+          "action": "exclude",
+          "message": "Adjustable pointers are unavailable with liquid-filled cases.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r27",
+          "when": [
+            {
+              "field": "case",
+              "op": "eq",
+              "value": "SH"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "EP",
+            "EQ"
+          ],
+          "action": "exclude",
+          "message": "Min/max adjustable pointers are unavailable with SH cases.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r28",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "EP"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "SG",
+            "NG"
+          ],
+          "action": "exclude",
+          "message": "Adjustable pointers require an acrylic window.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r29",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "EO"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "SG",
+            "NG"
+          ],
+          "action": "exclude",
+          "message": "Adjustable pointers require an acrylic window.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r30",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "EQ"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "SG",
+            "NG"
+          ],
+          "action": "exclude",
+          "message": "Adjustable pointers require an acrylic window.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r31",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "SG"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "EP",
+            "EO",
+            "EQ"
+          ],
+          "action": "exclude",
+          "message": "Adjustable pointers conflict with the selected window.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r32",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "NG"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "EP",
+            "EO",
+            "EQ"
+          ],
+          "action": "exclude",
+          "message": "Adjustable pointers conflict with the selected window.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r33",
+          "when": [
+            {
+              "field": "material",
+              "op": "in",
+              "value": [
+                "A",
+                "R"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "C3",
+            "WO"
+          ],
+          "action": "exclude",
+          "message": "C3 requires stainless steel or Monel system. WO requires C3.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r34",
+          "when": [
+            {
+              "field": "options",
+              "op": "contains",
+              "value": "WO"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "C3"
+          ],
+          "action": "require",
+          "message": "WO must be ordered with C3.",
+          "sourcePage": 3
+        },
+        {
+          "id": "r35",
+          "when": [
+            {
+              "field": "material",
+              "op": "in",
+              "value": [
+                "A",
+                "R"
+              ]
+            }
+          ],
+          "targetField": "certificates",
+          "targetCodes": [
+            "CD-5"
+          ],
+          "action": "exclude",
+          "message": "NACE certificate requires stainless steel or Monel wetted parts.",
+          "sourcePage": 4
+        },
+        {
+          "id": "r36",
+          "when": [
+            {
+              "field": "case",
+              "op": "eq",
+              "value": "SL"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "T1"
+          ],
+          "action": "exclude",
+          "message": "Test gauge dial is unavailable on liquid-filled cases.",
+          "sourcePage": 4
+        },
+        {
+          "id": "r37",
+          "when": [
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "30IMV",
+                "V/15#",
+                "V/30#",
+                "V/60#",
+                "V/100#"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "T1"
+          ],
+          "action": "exclude",
+          "message": "Test gauge dial requires a positive range of at least 15 psi.",
+          "sourcePage": 4
+        }
+      ],
+      "defaultValues": {
+        "range": "15#",
+        "material": "S",
+        "case": "SH",
+        "fill": "glycerin",
+        "connection": "04",
+        "location": "L",
+        "options": [
+          "LL"
+        ],
+        "certificates": []
+      },
+      "specs": [
+        {
+          "value": "±0.5%",
+          "label": "Standard accuracy"
+        },
+        {
+          "value": "30,000 psi",
+          "label": "Model maximum"
+        },
+        {
+          "value": "4½″",
+          "label": "Dial size"
+        }
+      ]
+    },
+    {
+      "id": "ashcroft-bdh-switch",
+      "name": "B / D / H Series Switches",
+      "manufacturer": "Ashcroft",
+      "subtitle": "Pressure, differential pressure & hydraulic switches",
+      "baseCode": "",
+      "revision": "Rev J · October 21, 2022",
+      "status": "draft",
+      "sourceName": "B/D/H Series switch datasheet",
+      "sourceUrl": "switch-datasheet.pdf",
+      "sourceText": "PAGE 1\nData Sheet\nB-Series Switches –\nPressure, Differential Pressure & Hydraulic\n\nFEATURES\n   Adjustable setpoints 15-100% of range\n   Fixed or limited adjustable deadband\n   Wide selection of switch elements\n  \u0007Explosion proof enclosure provides\n   uncompromising protection\n   Special designs for NACE & fire applications\n   SIL 3 Capable (B and D series only)\n\nTYPICAL USES\n  Offshore oil rigs\n  Chemical and petrochemical plants\n  Pulp and paper mills\n  Steel mills\n  Power plants\n  Water and sewage-treatment plants\n  Other corrosive environments\n\n SPECIFICATIONS\n Setpoint:                          Factory set or field adjustable\n\n Setpoint                           ±1% of full range (Additional setpoint shift\n Repeatability:                     of 1% of range per 50 °F from initial set-\n                                    point set at 70 °F typical)\n Enclosure Rating:                  B4/H4: NEMA 4X, IP66\n                                    B7: NEMA 7/9, IP66\n                                                                                                                         SIL 3 CAPABLE\n Enclosure Material:                Epoxy coated aluminum (standard)\n                                    Optional: 316 stainless steel (NEMA 7/9 only)\n                                                                                                                             • Highly reliable\n Diaphragm Material:                Buna-N, Viton™, Teflon™, SS, Monel®\n                                                                                                                             • \u0007Designed for use in wide range\n Pressure Connection: ¼ NPT Female (standard)\n                      Optional: ½ NPT Female, ¼ NPT Female                                                                     of applications\n                      & ½ NPT Male combo\n                                                                                                                             •\u0007\u0007Pressure ranges from vacuum to\n Electrical Output:   SPDT or DPDT\n                                                                                                                               7,500 psi\n Electrical                         ¾ NPT Female (standard)\n Termination:                       Optional: ½ NPT Female, M20 X 1.5\n                                                                                                                                  FACTORY\n Ambient Temperature –20 °F to 150 °F (–28 °C to 65 °C)                                                                            SEALED\n Range:               All units calibrated at 70 °F                                                                       CLASS I DIV 1 GROUPS B, C, & D\n Process                            0 °F to 150 °F (Buna-N or Teflon diaphragm) ™                                         CLASS II DIV 1 GROUPS E, F, & G\n Temperature:                       20 °F to 300 °F (Viton™ diaphragm)\n                                    0 °F to 300 °F (SS or Monel® diaphragm)                                                      Sira 02ATEX1391X    IECEx\n Pressure Ranges:                   Pressure: Vac-3000#                                                                          CSAE 21UKEX1056X SIR 14.0077X\n                                    Differential: 0-600#D                                                                 II 2GD\n                                                                                                                          Ex d IIC T6 Gb\n                                    Hydraulic: 1000-7500#                                                                 Ex tb IIIC T85 °C Db\n Approvals                          UL \u0007E34743 (B4/D4)                                                                    Ta = -20 °C to +60 °C\n                                       E38812 (B7/D7)\n                                    CSA: 55541\n                                    ATEX: Sira 02ATEX1391X (B7/D7 with XCN)\n                                    CSAE 21UKEX1056X (B7/D7 with XCN\n                                    IECEx SIR 14.0077X\n                                    FM: Limit Contol and Steam Limit Control\n                                    CE, UKCA\n\n\n                                                                                                                                                                                                1 of 9\nAll specifications are subject to change without notice. All sales subject to standard terms and conditions. Ashcroft®\nand Trust the Shield® are trademarks of Ashcroft Inc. The following non-Ashcroft trademarks are the property of\ntheir respective owners: Monel®, Teflon™, Viton™. For more information, see Ashcroft Brands & Trademarks\n©2022 Ashcroft Inc. bswp_switch_ds_RevJ_10-21-22                                                                                                            ashcroft.com | 1.800.328.8258 | Contact Us\n\n\nPAGE 2\nData Sheet\nB-Series Switches –\nPressure, Differential Pressure & Hydraulic\n\nPRESSURE, DIFFERENTIAL PRESSURE & HYDRAULIC RANGES\n PRESSURE/VACUUM RANGES(1)                                                Overpressure Ratings                   Approximate Deadband Switch Element(2) (4) Buna-N Diaphragm\n                         Nominal Pressure                                  Proof psi      Burst psi          20, 26, 27          21, 24, 31                 50                 22               32, 42\n Vacuum\n      30IMV                –760 mm Hg                  -100 kPa              250             400               0.3-0.7             1.5-4.0               0.5-2.2             0.4-1.5            2.1-4.2\n Compound\n  15IWV/15IW        –375 mm H2O/375 mm H2O –3.7 kPa/ 3.7 kPa                 20               35          0.15-.75/0.15-.75     1.5-2.5/1.5-2.5     0.45-2.0/0.45-2.0    0.5-1.2/0.5-1.2 2.1-3.5/2.1-3.5\n  30IWV/30IW        –760 mm H2O/760 mm H2O –7.5 kPa/ 7.5 kPa                 20               35          0.30-.60/0.30-.60     1.5-2.5/1.5-2.5     0.45-2.0/0.45-2.0    0.5-1.5/0.5-1.5 2.1-3.5/ 2.1-3.5\n  30IMV/15#          –760 mm Hg/ 1.0 kg/cm2 –100 kPa/100 kPa                 250             400           0.5-1.0/0.3-0.7      2.0-3.0/0.5-2.5     0.75-2.5/0 .5-1.0    0.7-1.8/0.7-1.4 2.8-4.2/0.7-2.1\n  30IMV/30#          –760 mm Hg/1.0 kg/cm2 –100 kPa/ 200 kPa                 250             400           1.0-1.5/0.3-0.8       3.0-6.0/1-3.5       1.2-4.5/0.7-1.5     1.4-2.4/0.4-1.3 4.2-8.4/1.4-2.8\n  30 IMV/60#         –760 mm Hg/4.0 kg/cm2 –100 kPa/ 400 kPa                 250             400           2.0-3.0/0.7-1.5      5.0-9.0/3.0-5.0      2.5-7.0/3.0-5.0     2.8-4.5/3.0-5.0 7.0-12.0/4.2-7.0\n   Pressure\n      10IW                  250 mm H2O                   2.5 kPa              20             35                0.2-0.5             1.0-2.0               0.35-1.5            0.4-1.0            1.4-2.8\n      30IW                  750 mm H2O                   7.5 kPa              20             35                0.3-0.6             1.5-2.5               0.45-2.0            0.5-2.0            2.1-3.5\n      60IW                 1500 mm H2O                   15 kPa               20             35                0.5-1.3             1.5-3.5               0.9-2.5             0.7-3.0            2.1-5.0\n     100IW                 2500 mm H2O                   25 kPa               20             35                0.6-1.6             2.5-5.5               1.1-4.0             1.0-4.0            3.5-7.7\n     150IW                 3750 mm H2O                   37 kPa               20             35                1.0-2.5             4.5-8.5               1.7-6.5             2.0-6.0           6.0-12.0\n       15#                  1.0 kg/cm2                  100 kPa              500            1500              0.1-0.35             0.5-1.5               0.2-1.0             0.4-1.0            0.7-2.1\n       30#                  2.0 kg/cm2                  200 kPa              500            1500              0.1-0.50             0.5-1.5               0.3-1.0             0.4-1.0            0.7-2.1\n       60#                  4.0 kg/cm2                  400 kPa              500            1500               0.3-1.0             1.0-3.5               0.7-2.5             0.6-2.0            1.4-5.0\n      100#                  7.0 kg/cm2                  700 kPa             1000            3000               0.5-1.7             1.5-5.0               1.1-3.5             1.0-4.5            2.1-7.0\n      200#                   14 kg/cm2                 1400 kPa             1000            3000                1-3                  5-13                  2-9               3.0-7.5           7.0-18.2\n      400#                   28 kg/cm2                 2800 kPa             2400            3000               4-7.5                 5-24                 5.5-15             4.0-11.0          7.0-33.6\n      600#                   42 kg/cm2                 4200 kPa             2400            3000                4-11                 9-30                  7-20              5.0-23.0           12.6-42\n     1000#(5)                70 kg/cm2                 7000 kPa             12000(5)       18000                7-30               30-110                 18-70               15-80             42-154\n     3000#                  210 kg/cm2                21000 kPa             12000          18000               15-60               80-235                37-160             30.0-230           112-329\n DIFFERENTIAL PRESSURE RANGES                                                 Pressure Ratings                     Approximate Deadband Switch Element(2) (3) (4) Buna-N Diaphragm\n                                                                            Static\n                        Nominal Pressure                                   Working      Proof psi                 20, 26, 27        21, 24, 31               50                 22              32, 42\n                                                                           Pressure\n        30IWD               750 mm H2O                  7.5 kPa                5.4                 21.6               0.3-0.6         1.5-2.5             0.45-2.0            0.5-2.0            2.1-3.5\n        60IWD              1500 mm H2O                  15 kPa                 5.4                 21.6               0.5-1.3         1.5-3.5              0.9-2.5            0.7-3.0            2.1-5.0\n       100IWD              2500 mm H2O                  25 kPa                 5.4                 21.6               0.6-1.6         2.5-5.5              1.1-4.0            1.0-4.0            3.5-7.7\n       150IWD              3750 mm H2O                  37 kPa                 5.4                 21.6               1.0-2.5         4.5-8.5              1.8-6.5            2.0-6.0           6.3-12.0\n         15#D                1.0 kg/cm2                100 kPa                 500                 2000               0.5-1.0         2.0-5.0              0.7-3.5            0.7-1.4            2.8-7.0\n         30#D                2.0 kg/cm2                200 kPa                 500                 2000               1.0-2.0         2.0-5.0              1.5-3.5            1.4-2.8            2.8-7.0\n         60#D                4.0 kg/cm2                400 kPa                 500                 2000               2.0-4.0         3.0-6.0              3.0-4.5            2.8-5.6            4.2-8.5\n        100#D                7.0 kg/cm2                700 kPa                1000                 4000             4.0-10.0         11.0-20.0            7.0-15.0            6.0-14.0         16.0-28.0\n        200#D               14.0 kg/cm2               1400 kPa                1000                 4000             5.0-15.0         12.0-40.0           10.0-26.0            7.0-21.0         17.0-56.0\n        400#D               28.0 kg/cm2               2800 kPa                1000                 8000            10.0-20.0         20.0-60.0           15.0-40.0           14.0-28.0         28.0-84.0\n        600#D               42.0 kg/cm2               4200 kPa                1000                 8000            20.0-40.0        80.0-150.0           30.0-115.0          30.0-56.0         12.0-210.0\n\n\nNOTES:\n1.\t\u0007Switches may generally be set between 15% and 100% of                Approximate deadbands for optional diaphragms:                     3. Deadbands given are for zero static working pressure.\n    nominal range on increasing pressure. Consult factory for            Viton:           Multiply Buna-N value by 1.4                      4.\t\u0007For approximate deadbands for dual switch elements,\n    applications where setpoints must be lower.                          Teflon:          Multiply Buna-N value by 1.2                          multiply the single switch element by 1.6.\n2.\t\u0007All deadbands are given in English units as shown in the             Stainless Steel: Multiply Buna-N value by 1.7                      5.\t\u0007Proof pressure is 4000 psi with stainless steel and Monel®\n    nominal range column. Deadbands shown are for switches               Monel:           Multiply Buna-N value by 1.7                          welded diaphragms.\n    with Buna-N diaphragm.\n\n\n\n\n                                                                                                                                                                                                          2 of 9\nAll specifications are subject to change without notice. All sales subject to standard terms and conditions. Ashcroft®\nand Trust the Shield® are trademarks of Ashcroft Inc. The following non-Ashcroft trademarks are the property of\ntheir respective owners: Monel®, Teflon™, Viton™. For more information, see Ashcroft Brands & Trademarks\n©2022 Ashcroft Inc. bswp_switch_ds_RevJ_10-21-22                                                                                                                  ashcroft.com | 1.800.328.8258 | Contact Us\n\n\nPAGE 3\nData Sheet\nB-Series Switches –\nPressure, Differential Pressure & Hydraulic\n\nORDERING CODE                                                                                               Example:     B4   20             B         XPK          600#\n Enclosure\n B4 - Pressure switch, Type 400, watertight enclosure meets NEMA 3, 4, 4X, 13 and IP66 requirements.\n B7 - P\n      \u0007 ressure switch, Type 700, explosion-proof enclosure meets Div. 1 & 2, NEMA 7, 9 and IP66 requirements.\n      Standard housing epoxy coated aluminum. Use variation code XYW for 316SS housing.\n D4 - Differential pressure switch, Type 400, water-tight enclosure meets NEMA 3, 4, 4X, 13 and IP66 requirements.\n\n D7 - \u0007Differential pressure switch, Type 700, explosion- proof enclosure meets Div. 1 & 2, NEMA 7, 9 and IP66\n       requirements. Standard housing epoxy coated aluminum. Use variation code XYW for 316SS housing.\n\n Switch Element Selection - UL/CSA Listed SPDT\n 20 - Narrow deadband ac, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed).\n 21 - Ammonia service, 5A - 125/250 Vac\n 22 - H\n      \u0007 ermetically sealed switch, narrow deadband, 5A - 125/250 Vac. Estimated dc. rating, 2.5A, 28 Vdc (not UL listed).\n 23 - Heavy duty ac, 22A - 125/250 Vac\n 24 - General purpose, 15A - 125/250/480 Vac, ½A - 125 Vdc, ¼A - 250 Vdc; 6A, 30 Vdc. (Standard switch)\n 25 - Heavy duty dc, 10A - 125 Vac or dc,1⁄8 HP - 125 Vac or dc. Not available with psid ranges.\n 26 - Sealed environment proof, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed).\n 27 - High temperature 300 °F, 15A - 125/250 Vac\n 28 - Manual reset trip on, increasing 15A - 125/250 Vac. Not available with type 700 enclosure.\n 29 - Manual reset trip on decreasing, 15A - 125/250 Vac. Not available with type 700 enclosure.\n\n 31 - Low level (gold) contacts, 1A - 125 Vac\n\n 32 - Hermetically sealed switch, general purpose, 11A - 125/250 Vac, 5A - 30 Vdc\n 42 - Hermetically sealed switch, gold contacts, 1A - 125 Vac\n 50 - Variable deadband, 15A - 125/250 Vac\n Switch Element Selection - UL/CSA Listed Dual (2 SPDT)\n 61 - Dual narrow deadband, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed).\n 62 - Dual sealed environment proof, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed).\n 63 - Dual high temp. 300 °F, 15A - 125/250 Vac\n 64 - Dual general purpose, 15A - 125/250/480 Vac, ½A- 125 Vdc, ¼A - 250 Vdc\n 65 - Dual ammonia service, 5A - 125/250 Vac\n 67 - D\n      \u0007 ual hermetically sealed switch, narrow deadband, 5A - 125/250 Vac. Wires cannot be terminated inside B400 switch\n      enclosure. Estimated dc. rating, 2.5A, 28 Vdc (not UL listed).\n 68 - D\n      \u0007 ual hermetically sealed switch, general purpose, 11A - 125/250 Vac 5A, 30 Vdc. Wires cannot be terminated inside\n      B400 switch enclosure.\n 70 - Dual low level gold contacts, 1A - 125 Vac\n 71 - Dual hermetically sealed switch, gold contacts, 1A - 125 Vac. Wires cannot be terminated inside B400 switch enclosure.\n Actuator Seal    Process Temp.                               Range\n                                                                           Ambient operating temperature limits –20 to 150 °F,\n                                                                                      all styles, setpoint shift of ±1% of range per 50 °F\n     Material           Limits °F(10)    Vac. in. H2O 0-600 psi 0-1000 psi 0-3000 psi\n                                                                       temperature change is normal. Switches are\n                                                                       calibrated at 70 °F reference\n B - Buna-N              0 to 150               •           •     •      •\n V - Viton™              20 to 300              •           •     •      •\n T - Teflon   ™\n                         0 to 150               •           •     •      •\n S - 316L                0 to 300                           •     •         Available on pressure only.\n P - Monel®              0 to 300                           •     •         Available on pressure only.\n Options - Use table from page 5\n Range - Select from table page 2\n\n\n\n\n                                                                                                                                                                            3 of 9\nAll specifications are subject to change without notice. All sales subject to standard terms and conditions. Ashcroft®\nand Trust the Shield® are trademarks of Ashcroft Inc. The following non-Ashcroft trademarks are the property of\ntheir respective owners: Monel®, Teflon™, Viton™. For more information, see Ashcroft Brands & Trademarks\n©2022 Ashcroft Inc. bswp_switch_ds_RevJ_10-21-22                                                                                        ashcroft.com | 1.800.328.8258 | Contact Us\n\n\nPAGE 4\nData Sheet\nB-Series Switches ––\nHydraulic*Differential Pressure & Hydraulic\nPressure,\n\nORDERING CODE                                                                                                      Example:            H4   24           V           XPK 3000#\n Enclosure\n H4 - Hydraulic pressure switch, Type 400, watertight enclosure meets NEMA 3, 4, 4X, 13 and IP66 requirements.\n Switch Element Selection\n 20 - Narrow deadband ac, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed)\n 22 - Hermetically sealed switch, narrow deadband, 5A - 125/250 Vac. Estimated dc rating, 2.5A, 28 Vdc (not UL listed).\n 23 - Heavy duty ac, 22A - 125/250 Vac\n 24 - General purpose, 15A - 125/250/480 Vac, ½A - 125 Vdc, ¼A - 250 Vdc; 6A, 30 Vdc. Standard switch.\n 25 - Heavy duty dc, 10A - 125 Vac or dc,1⁄8 HP - 125 Vac or dc\n 26 - Sealed environment proof, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed)\n 27 - High temperature 300 °F, 15A - 125/250 Vac\n 28 - Manual reset trip on increasing, 15A - 125/250\n 29 - Manual reset trip on decreasing, 15A - 125/250 Vac\n 32 - Hermetically sealed switch, general purpose, 11A - 125/250 Vac, 5A - 30 Vdc\n Switch Element Selection\n 61 - Dual narrow deadband, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed)\n 62 - Dual sealed environment proof, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed)\n 63 - Dual high temp. 300 °F, 15A - 125/250 Vac\n 64 - Dual general purpose, 15A - 125/250/480 Vac, ½A- 125 Vdc, ¼A - 250 Vdc\n 65 - Dual ammonia service, 5A - 125/250 Vac\n 70 - Dual low level gold contacts, 1A - 125 Vac\n Actuator Seal\n    Material    Process Temp. Limits °F                \u0007 mbient operating temperature limits –20 to 150 °F, all styles, setpoint shift of ±1% of range\n                                                       A\n                                                       per 50 °F temperature change is normal. Switches are calibrated at 70 ° F reference.\n V - Viton™       20 to 300                                            Viton™ O-ring, stainless steel pressure connection\n Options Use table from page 6\n Range\n\n   Range psi     Adjustable Setpoint Limits psi                        Proof Pressure psi\n\n    1000          150 – 1000                                              12,000\n\n    2000         300 – 2000                                              12,000\n    3000         450 – 3000                                              12,000\n    5000         750 – 5000                                              10,000\n    7500        1125 – 7500                                               10,000\n*Not all B-series hydraulic version (H4) switches are CE compliant. Consult factory for further information\n\n\n\n                                                  H Series Switch Deadband\n\n Range psi         20, 26, 27, 61, 62, 63       21, 24, 31, 65, 64, 70                50                 22, 67          32, 42, 68, 71\n\n 1,000                     15 - 130                     10 - 140                  15 - 145               10 - 85           15 - 130\n\n 2,000                     10 - 215                     15 - 250                  15 - 285              15 - 220           15 - 300\n\n 3,000                     18 - 170                     35 - 180                  30 - 190              35 - 170            40 -170\n\n 5,000                     65 - 310                    140 - 460                  85 - 565              90 - 460           140 - 430\n\n 7,000                     80 - 410                    170 - 510                 110 - 810             130 - 510           150 -610\n\n Note: 1. All deadbands are given in English units as shown in the nominal range column.\n\n\n\n                                                                                                                                                                                     4 of 9\nAll specifications are subject to change without notice. All sales subject to standard terms and conditions. Ashcroft®\nand Trust the Shield® are trademarks of Ashcroft Inc. The following non-Ashcroft trademarks are the property of\ntheir respective owners: Monel®, Teflon™, Viton™. For more information, see Ashcroft Brands & Trademarks\n©2022 Ashcroft Inc. bswp_switch_ds_RevJ_10-21-22                                                                                                 ashcroft.com | 1.800.328.8258 | Contact Us\n\n\nPAGE 5\nData Sheet\nB-Series Switches –\nPressure, Differential Pressure & Hydraulic\n\nOPTIONAL FEATURES AND ACCESSORIES\n                                                 B-SERIES SWITCH OPTIONS\n\t\t                                                    Appicable Switch Series\n\t\t\t\t                                                              Differential\n\t\t\t                                                 Pressure        Pressure         H\n  Code            Description                   (psi)\t  (in. H2O) (psi) \t (in. H2O)\t\t Notes\n  XBP Wall Mounting Bracket in. H2O\t\t•\t\t                                      •\n  XCH Chained Cover                               •         •       •         •     •\n  XC8 CSA Approval                                •         •       •         •\t\t Standard on 400 Series\n  XCN ATEX Directive 94/9/EC/IECEx Rating         •         •       •         •\t\t      700 Series only.\n  XC4 Traceable Calibration Certificate           •         •       •         •\n  XD2 Dual Seal Rating (700 Series only)          •\t\t\t                        •\n       FM Approval – Single Element               •         •       •         • \t\t     N/A on all combinations. “T” diaphragm N/A on IW ranges.\n  XFM\n\t\t     FM Approval – Dual Element                 •         •       •         •\t\t      N/A on all combinations. “T” diaphragm N/A on IW ranges.\n  XFP Fungus Proofing                             •         •       •         •     •\n  XFS Factory Adjusted Setpoint                   •         •       •         •     •  Advise static or working pressure for differential pressure switches.\n  XG3 Belleville Actuator                         •\t\t\t\t\t                               \u000764 or 68 element only. N/A on all combinations.\n  XG5 UL Limit Control to 150 in. H2O\t\t\t\t                                     •\t\t\u0007Buna-N and Viton™ diaphragm.­N/A on all combinations.\n  XG6 UL Limit Control to 600 psi                 •\t\t\t\t\t                                Buna-N and Viton™ diaphragm.­N/A on all combinations.\n  XG7 Secondary Chamber with Vent                 •\t\t\t\t\t                                SS diaphragm required. Teflon™ diaphragm is the backup. NEMA 7 only.\n  XG8 Steam Limit Control to 300 psi              •\t\t\t\t\t\n  XG9 Fire Safe Welded Actuator                   •\t\t\t\t\t                                Stainless steel diaphragm only.\n  XHS High Static Differential Pressure\t\t\t                          •\t\t\t                12 \u0007Buna-N and Viton™ diaphragm – 15#D & 30#D only.\n\t\t     High Pressure, 40 psi, (static) d/p only\n  XHX 160 psi (proof) d/p only\t\t•\t\t                                           •\n\t\t     100 psi (proof) pressure only (in. H2O)\n  XJK Left Conduit Connection                     •         •       •         •     •   Standard on 700 Series. N/A with DPDT ­element on 400 Series.\n  XJL ¾˝ to ½˝ Reducing Bushing                   •         •       •         •     •\n  XJM Metric Electrical Conduit Conn. M20 x 1.5   •         •       •         •     •\n  XK3 Terminal Block (700 Series only)            •         •       •         • \t\t      \u0007Terminal Blocks standard with 700 dual switches.\n  XLE 6 foot Leads on the Micro Switch            •         •       •         •     •\n  XNH Tagging Stainless Steel                     •         •       •         •     •\n  XNN Paper Tag                                   •         •       •         •     •\n  XPK Pilot Light(s) Top Mounted                  •         •       •         •     •   N/A on 700 Series.\n       ¾˝ Sealed Conduit Connection\n\t\tXPM w/16˝ Lead Wires                            •         •       •         •     •\n\n  XTA 316 Stainless Steel Pressure\t\t\n                                                            •\t\t•\n\t\t     Connection for in. H2O Range\n  XTM 2˝ Pipe Mounting Bracket                    •         •       •         •\n  XUD 316 Stainless Steel Pressure Conn.\t\t\t                         •\n    Pressure Connection:\n  X06 ½ NPT Male, ¼ NPT Female                    •         •       •         •\t\t       Standard with 1000 and 3000 psi ranges. ­Bottom connection\n    316 Stainless Steel (Combination)\t\t\t\t\t\t                                             only on DP in H2O ranges.\n  X07 ½ NPTF Press. Conn., 316 SS                 •         •       •         •\t\t       N/A with Monel® diaphragm.\n  X6B Cleaned for Oxygen Service                  •\t\t               •\t\t             •   Buna-N cannot be cleaned for oxygen service.\n  X9F Inches of Water Housing for Outdoor Use\t\t             •\n  XYW 316SS Housing                               •         •       •         •\t\t\n  XMD Metric Range on Label                       •         •       •         •     •\n  XRN Range Scale                                 •         •       •         •     •\n\n\n\n\n                                                                                                                                                              5 of 9\nAll specifications are subject to change without notice. All sales subject to standard terms and conditions. Ashcroft®\nand Trust the Shield® are trademarks of Ashcroft Inc. The following non-Ashcroft trademarks are the property of\ntheir respective owners: Monel®, Teflon™, Viton™. For more information, see Ashcroft Brands & Trademarks\n©2022 Ashcroft Inc. bswp_switch_ds_RevJ_10-21-22                                                                          ashcroft.com | 1.800.328.8258 | Contact Us\n",
+      "notes": "Source-derived draft. Verify application ratings, setpoint and deadband. H4 range table lists 7500 psi but deadband table lists 7000; confirm with factory. H4 option reference points to p.6; applicability is shown on p.5. XFM/XG3/XG5/XG6 are not available on every combination. Multiple-option ordering syntax requires confirmation.",
+      "adminInstructions": "Use five sections in this order: Enclosure, Switch element, Actuator seal, Options, Range. Enclosure choices are B4, B7, D4, D7, H4. H4 uses its own element and range lists. Use page 5 applicability dots and footnotes for options. Keep single/dual elements in one Switch element section.",
+      "defaultValues": {
+        "enclosure": "B4",
+        "element": "20",
+        "seal": "B",
+        "options": [
+          "XPK"
+        ],
+        "range": "600#"
+      },
+      "fields": [
+        {
+          "id": "enclosure",
+          "label": "Enclosure",
+          "type": "single",
+          "required": true,
+          "codeOrder": 1,
+          "prefix": "",
+          "options": [
+            {
+              "code": "B4",
+              "label": "B4 · Pressure, watertight",
+              "description": "Type 400 · NEMA 3, 4, 4X, 13 · IP66",
+              "sourcePage": 3
+            },
+            {
+              "code": "B7",
+              "label": "B7 · Pressure, explosion-proof",
+              "description": "Type 700 · NEMA 7, 9 · IP66",
+              "sourcePage": 3
+            },
+            {
+              "code": "D4",
+              "label": "D4 · Differential, watertight",
+              "description": "Type 400 · NEMA 3, 4, 4X, 13 · IP66",
+              "sourcePage": 3
+            },
+            {
+              "code": "D7",
+              "label": "D7 · Differential, explosion-proof",
+              "description": "Type 700 · NEMA 7, 9 · IP66",
+              "sourcePage": 3
+            },
+            {
+              "code": "H4",
+              "label": "H4 · Hydraulic, watertight",
+              "description": "Type 400 · NEMA 3, 4, 4X, 13 · IP66",
+              "sourcePage": 4
+            }
+          ]
+        },
+        {
+          "id": "element",
+          "label": "Switch element",
+          "type": "single",
+          "required": true,
+          "codeOrder": 2,
+          "prefix": "",
+          "options": [
+            {
+              "code": "20",
+              "label": "Narrow deadband ac",
+              "description": "Narrow deadband ac, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed).",
+              "sourcePage": 3
+            },
+            {
+              "code": "21",
+              "label": "Ammonia service",
+              "description": "Ammonia service, 5A - 125/250 Vac",
+              "sourcePage": 3
+            },
+            {
+              "code": "22",
+              "label": "Hermetically sealed switch",
+              "description": "Hermetically sealed switch, narrow deadband, 5A - 125/250 Vac. Estimated dc. rating, 2.5A, 28 Vdc (not UL listed).",
+              "sourcePage": 3
+            },
+            {
+              "code": "23",
+              "label": "Heavy duty ac",
+              "description": "Heavy duty ac, 22A - 125/250 Vac",
+              "sourcePage": 3
+            },
+            {
+              "code": "24",
+              "label": "General purpose",
+              "description": "General purpose, 15A - 125/250/480 Vac, ½A - 125 Vdc, ¼A - 250 Vdc; 6A, 30 Vdc. (Standard switch)",
+              "sourcePage": 3
+            },
+            {
+              "code": "25",
+              "label": "Heavy duty dc",
+              "description": "Heavy duty dc, 10A - 125 Vac or dc,1⁄8 HP - 125 Vac or dc. Not available with psid ranges.",
+              "sourcePage": 3
+            },
+            {
+              "code": "26",
+              "label": "Sealed environment proof",
+              "description": "Sealed environment proof, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed).",
+              "sourcePage": 3
+            },
+            {
+              "code": "27",
+              "label": "High temperature 300 °F",
+              "description": "High temperature 300 °F, 15A - 125/250 Vac",
+              "sourcePage": 3
+            },
+            {
+              "code": "28",
+              "label": "Manual reset trip on",
+              "description": "Manual reset trip on, increasing 15A - 125/250 Vac. Not available with type 700 enclosure.",
+              "sourcePage": 3
+            },
+            {
+              "code": "29",
+              "label": "Manual reset trip on decreasing",
+              "description": "Manual reset trip on decreasing, 15A - 125/250 Vac. Not available with type 700 enclosure.",
+              "sourcePage": 3
+            },
+            {
+              "code": "31",
+              "label": "Low level (gold) contacts",
+              "description": "Low level (gold) contacts, 1A - 125 Vac",
+              "sourcePage": 3
+            },
+            {
+              "code": "32",
+              "label": "Hermetically sealed switch",
+              "description": "Hermetically sealed switch, general purpose, 11A - 125/250 Vac, 5A - 30 Vdc",
+              "sourcePage": 3
+            },
+            {
+              "code": "42",
+              "label": "Hermetically sealed switch",
+              "description": "Hermetically sealed switch, gold contacts, 1A - 125 Vac",
+              "sourcePage": 3
+            },
+            {
+              "code": "50",
+              "label": "Variable deadband",
+              "description": "Variable deadband, 15A - 125/250 Vac",
+              "sourcePage": 3
+            },
+            {
+              "code": "61",
+              "label": "Dual narrow deadband",
+              "description": "Dual narrow deadband, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed).",
+              "sourcePage": 3
+            },
+            {
+              "code": "62",
+              "label": "Dual sealed environment proof",
+              "description": "Dual sealed environment proof, 15A - 125/250 Vac. Estimated dc rating, 0.4A, 120 Vdc (not UL listed).",
+              "sourcePage": 3
+            },
+            {
+              "code": "63",
+              "label": "Dual high temp. 300 °F",
+              "description": "Dual high temp. 300 °F, 15A - 125/250 Vac",
+              "sourcePage": 3
+            },
+            {
+              "code": "64",
+              "label": "Dual general purpose",
+              "description": "Dual general purpose, 15A - 125/250/480 Vac, ½A- 125 Vdc, ¼A - 250 Vdc",
+              "sourcePage": 3
+            },
+            {
+              "code": "65",
+              "label": "Dual ammonia service",
+              "description": "Dual ammonia service, 5A - 125/250 Vac",
+              "sourcePage": 3
+            },
+            {
+              "code": "67",
+              "label": "Dual hermetically sealed switch",
+              "description": "Dual hermetically sealed switch, narrow deadband, 5A - 125/250 Vac. Wires cannot be terminated inside B400 switch enclosure. Estimated dc. rating, 2.5A, 28 Vdc (not UL listed).",
+              "sourcePage": 3
+            },
+            {
+              "code": "68",
+              "label": "Dual hermetically sealed switch",
+              "description": "Dual hermetically sealed switch, general purpose, 11A - 125/250 Vac 5A, 30 Vdc. Wires cannot be terminated inside B400 switch enclosure.",
+              "sourcePage": 3
+            },
+            {
+              "code": "70",
+              "label": "Dual low level gold contacts",
+              "description": "Dual low level gold contacts, 1A - 125 Vac",
+              "sourcePage": 3
+            },
+            {
+              "code": "71",
+              "label": "Dual hermetically sealed switch",
+              "description": "Dual hermetically sealed switch, gold contacts, 1A - 125 Vac. Wires cannot be terminated inside B400 switch enclosure.",
+              "sourcePage": 3
+            }
+          ]
+        },
+        {
+          "id": "seal",
+          "label": "Actuator seal",
+          "type": "single",
+          "required": true,
+          "codeOrder": 3,
+          "prefix": "",
+          "options": [
+            {
+              "code": "B",
+              "label": "Buna-N",
+              "description": "Process: 0–150 °F. See p.3 availability matrix.",
+              "sourcePage": 3
+            },
+            {
+              "code": "V",
+              "label": "Viton",
+              "description": "Process: 20–300 °F. Only listed H4 seal (p.4).",
+              "sourcePage": 3
+            },
+            {
+              "code": "T",
+              "label": "Teflon",
+              "description": "Process: 0–150 °F. See p.3 matrix.",
+              "sourcePage": 3
+            },
+            {
+              "code": "S",
+              "label": "316L stainless steel",
+              "description": "Pressure only; positive psi ranges through 1000 psi.",
+              "sourcePage": 3
+            },
+            {
+              "code": "P",
+              "label": "Monel",
+              "description": "Pressure only; positive psi ranges through 1000 psi.",
+              "sourcePage": 3
+            }
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options",
+          "type": "multi",
+          "required": false,
+          "codeOrder": 4,
+          "prefix": "",
+          "options": [
+            {
+              "code": "XBP",
+              "label": "Wall mounting bracket, inH₂O",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XCH",
+              "label": "Chained cover",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XC8",
+              "label": "CSA approval",
+              "description": "Standard on 400 series.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XCN",
+              "label": "ATEX / IECEx rating",
+              "description": "700 series only.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XC4",
+              "label": "Traceable calibration certificate",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XD2",
+              "label": "Dual seal rating",
+              "description": "700 series only.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XFM",
+              "label": "FM approval",
+              "description": "Not available on all combinations; T diaphragm not available on IW ranges. Confirm approval for exact configuration.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XFP",
+              "label": "Fungus proofing",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XFS",
+              "label": "Factory-adjusted setpoint",
+              "description": "Provide desired setpoint; advise static/working pressure for differential pressure.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XG3",
+              "label": "Belleville actuator",
+              "description": "64 or 68 element only. Not available on all combinations; factory confirmation required.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XG5",
+              "label": "UL limit control to 150 inH₂O",
+              "description": "Buna-N or Viton. Not available on all combinations; factory confirmation required.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XG6",
+              "label": "UL limit control to 600 psi",
+              "description": "Buna-N or Viton. Not available on all combinations; factory confirmation required.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XG7",
+              "label": "Secondary chamber with vent",
+              "description": "SS diaphragm required; Teflon backup; NEMA 7 only.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XG8",
+              "label": "Steam limit control to 300 psi",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XG9",
+              "label": "Fire-safe welded actuator",
+              "description": "Stainless steel diaphragm only.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XHS",
+              "label": "High static differential pressure",
+              "description": "Buna-N or Viton; 15#D and 30#D only.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XHX",
+              "label": "High-pressure inH₂O housing",
+              "description": "Confirm static/proof limits for the exact pressure or differential application.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XJK",
+              "label": "Left conduit connection",
+              "description": "Standard on 700 series; unavailable with dual elements on 400 series.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XJL",
+              "label": "¾ to ½ reducing bushing",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XJM",
+              "label": "M20 × 1.5 electrical conduit",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XK3",
+              "label": "Terminal block",
+              "description": "700 series only; standard with dual switches.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XLE",
+              "label": "6-foot microswitch leads",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XNH",
+              "label": "Stainless steel tag",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XNN",
+              "label": "Paper tag",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XPK",
+              "label": "Top-mounted pilot light(s)",
+              "description": "Unavailable on 700 series.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XPM",
+              "label": "Sealed conduit with 16-inch leads",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XTA",
+              "label": "316 SS pressure connection for inH₂O",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XTM",
+              "label": "2-inch pipe mounting bracket",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XUD",
+              "label": "316 SS pressure connection",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "X06",
+              "label": "½ NPT male / ¼ NPT female, 316 SS",
+              "description": "Standard on 1000 and 3000 psi ranges; bottom connection only on differential inH₂O.",
+              "sourcePage": 5
+            },
+            {
+              "code": "X07",
+              "label": "½ NPTF pressure connection, 316 SS",
+              "description": "Unavailable with Monel diaphragm.",
+              "sourcePage": 5
+            },
+            {
+              "code": "X6B",
+              "label": "Oxygen-service cleaning",
+              "description": "Buna-N cannot be cleaned for oxygen service.",
+              "sourcePage": 5
+            },
+            {
+              "code": "X9F",
+              "label": "Outdoor inH₂O housing",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XYW",
+              "label": "316 SS housing",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XMD",
+              "label": "Metric range label",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            },
+            {
+              "code": "XRN",
+              "label": "Range scale",
+              "description": "See page 5 applicability matrix.",
+              "sourcePage": 5
+            }
+          ]
+        },
+        {
+          "id": "range",
+          "label": "Range",
+          "type": "single",
+          "required": true,
+          "codeOrder": 5,
+          "prefix": "",
+          "options": [
+            {
+              "code": "30IMV",
+              "label": "Vacuum · 30 inHg",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "15IWV/15IW",
+              "label": "Compound · −15 to 15 inH₂O",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "30IWV/30IW",
+              "label": "Compound · −30 to 30 inH₂O",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "30IMV/15#",
+              "label": "Vacuum to 15 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "30IMV/30#",
+              "label": "Vacuum to 30 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "30IMV/60#",
+              "label": "Vacuum to 60 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "10IW",
+              "label": "10 inH₂O",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "30IW",
+              "label": "30 inH₂O",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "60IW",
+              "label": "60 inH₂O",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "100IW",
+              "label": "100 inH₂O",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "150IW",
+              "label": "150 inH₂O",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "15#",
+              "label": "15 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "30#",
+              "label": "30 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "60#",
+              "label": "60 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "100#",
+              "label": "100 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "200#",
+              "label": "200 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "400#",
+              "label": "400 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "600#",
+              "label": "600 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "1000#",
+              "label": "1000 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "3000#",
+              "label": "3000 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "30IWD",
+              "label": "30 inH₂O differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "60IWD",
+              "label": "60 inH₂O differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "100IWD",
+              "label": "100 inH₂O differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "150IWD",
+              "label": "150 inH₂O differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "15#D",
+              "label": "15 psi differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "30#D",
+              "label": "30 psi differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "60#D",
+              "label": "60 psi differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "100#D",
+              "label": "100 psi differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "200#D",
+              "label": "200 psi differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "400#D",
+              "label": "400 psi differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "600#D",
+              "label": "600 psi differential",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 2
+            },
+            {
+              "code": "2000#",
+              "label": "2000 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 4
+            },
+            {
+              "code": "5000#",
+              "label": "5000 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 4
+            },
+            {
+              "code": "7500#",
+              "label": "7500 psi",
+              "description": "Nominal range; confirm adjustable setpoint and deadband separately.",
+              "sourcePage": 4
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "id": "enclosure",
+          "label": "Enclosure",
+          "fields": [
+            "enclosure"
+          ]
+        },
+        {
+          "id": "element",
+          "label": "Switch element",
+          "fields": [
+            "element"
+          ]
+        },
+        {
+          "id": "seal",
+          "label": "Actuator seal",
+          "fields": [
+            "seal"
+          ]
+        },
+        {
+          "id": "options",
+          "label": "Options",
+          "fields": [
+            "options"
+          ]
+        },
+        {
+          "id": "range",
+          "label": "Range",
+          "fields": [
+            "range"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "id": "sw-1",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "B4",
+                "B7"
+              ]
+            }
+          ],
+          "targetField": "range",
+          "targetCodes": [
+            "30IWD",
+            "60IWD",
+            "100IWD",
+            "150IWD",
+            "15#D",
+            "30#D",
+            "60#D",
+            "100#D",
+            "200#D",
+            "400#D",
+            "600#D",
+            "2000#",
+            "5000#",
+            "7500#"
+          ],
+          "action": "exclude",
+          "message": "Range is not listed for this enclosure family.",
+          "sourcePage": 2
+        },
+        {
+          "id": "sw-2",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "D4",
+                "D7"
+              ]
+            }
+          ],
+          "targetField": "range",
+          "targetCodes": [
+            "30IMV",
+            "15IWV/15IW",
+            "30IWV/30IW",
+            "30IMV/15#",
+            "30IMV/30#",
+            "30IMV/60#",
+            "10IW",
+            "30IW",
+            "60IW",
+            "100IW",
+            "150IW",
+            "15#",
+            "30#",
+            "60#",
+            "100#",
+            "200#",
+            "400#",
+            "600#",
+            "1000#",
+            "3000#",
+            "2000#",
+            "5000#",
+            "7500#"
+          ],
+          "action": "exclude",
+          "message": "Range is not listed for this enclosure family.",
+          "sourcePage": 2
+        },
+        {
+          "id": "sw-3",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "H4"
+              ]
+            }
+          ],
+          "targetField": "range",
+          "targetCodes": [
+            "30IMV",
+            "15IWV/15IW",
+            "30IWV/30IW",
+            "30IMV/15#",
+            "30IMV/30#",
+            "30IMV/60#",
+            "10IW",
+            "30IW",
+            "60IW",
+            "100IW",
+            "150IW",
+            "15#",
+            "30#",
+            "60#",
+            "100#",
+            "200#",
+            "400#",
+            "600#",
+            "30IWD",
+            "60IWD",
+            "100IWD",
+            "150IWD",
+            "15#D",
+            "30#D",
+            "60#D",
+            "100#D",
+            "200#D",
+            "400#D",
+            "600#D"
+          ],
+          "action": "exclude",
+          "message": "Range is not listed for this enclosure family.",
+          "sourcePage": 4
+        },
+        {
+          "id": "sw-4",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "eq",
+              "value": "H4"
+            }
+          ],
+          "targetField": "element",
+          "targetCodes": [
+            "21",
+            "31",
+            "42",
+            "50",
+            "67",
+            "68",
+            "71"
+          ],
+          "action": "exclude",
+          "message": "Element is not listed in the H4 ordering table.",
+          "sourcePage": 4
+        },
+        {
+          "id": "sw-5",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "B7",
+                "D7"
+              ]
+            }
+          ],
+          "targetField": "element",
+          "targetCodes": [
+            "28",
+            "29"
+          ],
+          "action": "exclude",
+          "message": "Manual-reset elements are unavailable with Type 700 enclosures.",
+          "sourcePage": 3
+        },
+        {
+          "id": "sw-6",
+          "when": [
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "15#D",
+                "30#D",
+                "60#D",
+                "100#D",
+                "200#D",
+                "400#D",
+                "600#D"
+              ]
+            }
+          ],
+          "targetField": "element",
+          "targetCodes": [
+            "25"
+          ],
+          "action": "exclude",
+          "message": "Element 25 is unavailable with psid ranges.",
+          "sourcePage": 3
+        },
+        {
+          "id": "sw-7",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "eq",
+              "value": "H4"
+            }
+          ],
+          "targetField": "seal",
+          "targetCodes": [
+            "B",
+            "T",
+            "S",
+            "P"
+          ],
+          "action": "exclude",
+          "message": "H4 ordering table lists Viton only.",
+          "sourcePage": 4
+        },
+        {
+          "id": "sw-8",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "D4",
+                "D7"
+              ]
+            }
+          ],
+          "targetField": "seal",
+          "targetCodes": [
+            "S",
+            "P"
+          ],
+          "action": "exclude",
+          "message": "316L and Monel seals are available on pressure only.",
+          "sourcePage": 3
+        },
+        {
+          "id": "sw-9",
+          "when": [
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "30IMV",
+                "15IWV/15IW",
+                "30IWV/30IW",
+                "30IMV/15#",
+                "30IMV/30#",
+                "30IMV/60#",
+                "10IW",
+                "30IW",
+                "60IW",
+                "100IW",
+                "150IW",
+                "3000#",
+                "30IWD",
+                "60IWD",
+                "100IWD",
+                "150IWD",
+                "15#D",
+                "30#D",
+                "60#D",
+                "100#D",
+                "200#D",
+                "400#D",
+                "600#D",
+                "2000#",
+                "5000#",
+                "7500#"
+              ]
+            }
+          ],
+          "targetField": "seal",
+          "targetCodes": [
+            "S",
+            "P"
+          ],
+          "action": "exclude",
+          "message": "Welded metal seals are listed for positive psi pressure ranges through 1000 psi.",
+          "sourcePage": 3
+        },
+        {
+          "id": "sw-10",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "B4",
+                "B7"
+              ]
+            },
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "15#",
+                "30#",
+                "60#",
+                "100#",
+                "200#",
+                "400#",
+                "600#",
+                "1000#",
+                "3000#"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XBP",
+            "XG5",
+            "XHS",
+            "XHX",
+            "XTA",
+            "XUD",
+            "X9F"
+          ],
+          "action": "exclude",
+          "message": "Option is not marked applicable to this switch family and range type in the page 5 matrix.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-11",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "B4",
+                "B7"
+              ]
+            },
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "15IWV/15IW",
+                "30IWV/30IW",
+                "10IW",
+                "30IW",
+                "60IW",
+                "100IW",
+                "150IW"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XD2",
+            "XG3",
+            "XG5",
+            "XG6",
+            "XG7",
+            "XG8",
+            "XG9",
+            "XHS",
+            "XUD",
+            "X6B"
+          ],
+          "action": "exclude",
+          "message": "Option is not marked applicable to this switch family and range type in the page 5 matrix.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-12",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "D4",
+                "D7"
+              ]
+            },
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "15#D",
+                "30#D",
+                "60#D",
+                "100#D",
+                "200#D",
+                "400#D",
+                "600#D"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XBP",
+            "XD2",
+            "XG3",
+            "XG5",
+            "XG6",
+            "XG7",
+            "XG8",
+            "XG9",
+            "XHX",
+            "XTA",
+            "X9F"
+          ],
+          "action": "exclude",
+          "message": "Option is not marked applicable to this switch family and range type in the page 5 matrix.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-13",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "D4",
+                "D7"
+              ]
+            },
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "30IWD",
+                "60IWD",
+                "100IWD",
+                "150IWD"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XG3",
+            "XG6",
+            "XG7",
+            "XG8",
+            "XG9",
+            "XHS",
+            "XUD",
+            "X6B",
+            "X9F"
+          ],
+          "action": "exclude",
+          "message": "Option is not marked applicable to this switch family and range type in the page 5 matrix.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-14",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "eq",
+              "value": "H4"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XBP",
+            "XC8",
+            "XCN",
+            "XC4",
+            "XD2",
+            "XFM",
+            "XG3",
+            "XG5",
+            "XG6",
+            "XG7",
+            "XG8",
+            "XG9",
+            "XHS",
+            "XHX",
+            "XK3",
+            "XTA",
+            "XTM",
+            "XUD",
+            "X06",
+            "X07",
+            "X9F",
+            "XYW"
+          ],
+          "action": "exclude",
+          "message": "Option is not marked applicable to H4 in the page 5 matrix.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-15",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "B4",
+                "D4",
+                "H4"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XCN",
+            "XD2",
+            "XK3",
+            "XG7"
+          ],
+          "action": "exclude",
+          "message": "Option is restricted to 700-series enclosures.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-16",
+          "when": [
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "B7",
+                "D7"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XPK"
+          ],
+          "action": "exclude",
+          "message": "Pilot lights are unavailable on 700 series.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-17",
+          "when": [
+            {
+              "field": "seal",
+              "op": "eq",
+              "value": "P"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "X07"
+          ],
+          "action": "exclude",
+          "message": "X07 is unavailable with Monel diaphragm.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-18",
+          "when": [
+            {
+              "field": "seal",
+              "op": "eq",
+              "value": "B"
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "X6B"
+          ],
+          "action": "exclude",
+          "message": "Buna-N cannot be cleaned for oxygen service.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-19",
+          "when": [
+            {
+              "field": "seal",
+              "op": "in",
+              "value": [
+                "T",
+                "S",
+                "P"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XHS",
+            "XG5",
+            "XG6"
+          ],
+          "action": "exclude",
+          "message": "This option requires Buna-N or Viton diaphragm.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-20",
+          "when": [
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "30IMV",
+                "15IWV/15IW",
+                "30IWV/30IW",
+                "30IMV/15#",
+                "30IMV/30#",
+                "30IMV/60#",
+                "10IW",
+                "30IW",
+                "60IW",
+                "100IW",
+                "150IW",
+                "15#",
+                "30#",
+                "60#",
+                "100#",
+                "200#",
+                "400#",
+                "600#",
+                "1000#",
+                "3000#",
+                "30IWD",
+                "60IWD",
+                "100IWD",
+                "150IWD",
+                "60#D",
+                "100#D",
+                "200#D",
+                "400#D",
+                "600#D",
+                "2000#",
+                "5000#",
+                "7500#"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XHS"
+          ],
+          "action": "exclude",
+          "message": "High-static option is limited to 15#D and 30#D.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-21",
+          "when": [
+            {
+              "field": "seal",
+              "op": "in",
+              "value": [
+                "B",
+                "V",
+                "T",
+                "P"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XG7",
+            "XG9"
+          ],
+          "action": "exclude",
+          "message": "This option requires a stainless steel diaphragm.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-22",
+          "when": [
+            {
+              "field": "element",
+              "op": "in",
+              "value": [
+                "20",
+                "21",
+                "22",
+                "23",
+                "24",
+                "25",
+                "26",
+                "27",
+                "28",
+                "29",
+                "31",
+                "32",
+                "42",
+                "50",
+                "61",
+                "62",
+                "63",
+                "65",
+                "67",
+                "70",
+                "71"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XG3"
+          ],
+          "action": "exclude",
+          "message": "Belleville actuator requires element 64 or 68.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-23",
+          "when": [
+            {
+              "field": "element",
+              "op": "in",
+              "value": [
+                "61",
+                "62",
+                "63",
+                "64",
+                "65",
+                "67",
+                "68",
+                "70",
+                "71"
+              ]
+            },
+            {
+              "field": "enclosure",
+              "op": "in",
+              "value": [
+                "B4",
+                "D4",
+                "H4"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XJK"
+          ],
+          "action": "exclude",
+          "message": "Left conduit connection is unavailable with dual elements on 400 series.",
+          "sourcePage": 5
+        },
+        {
+          "id": "sw-24",
+          "when": [
+            {
+              "field": "seal",
+              "op": "eq",
+              "value": "T"
+            },
+            {
+              "field": "range",
+              "op": "in",
+              "value": [
+                "15IWV/15IW",
+                "30IWV/30IW",
+                "10IW",
+                "30IW",
+                "60IW",
+                "100IW",
+                "150IW",
+                "30IWD",
+                "60IWD",
+                "100IWD",
+                "150IWD"
+              ]
+            }
+          ],
+          "targetField": "options",
+          "targetCodes": [
+            "XFM"
+          ],
+          "action": "exclude",
+          "message": "FM approval is unavailable with Teflon diaphragm on IW ranges.",
+          "sourcePage": 5
+        }
+      ]
+    }
+  ]
+}

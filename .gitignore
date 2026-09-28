@@ -1,0 +1,10 @@
+node_modules/
+.sites-runtime/
+.wrangler-config/
+.wrangler/
+cloudflare/.wrangler/
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example

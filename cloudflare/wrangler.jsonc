@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "daughtridge-configurator-api",
+  "main": "../dist/server/index.js",
+  "compatibility_date": "2026-09-28",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "daughtridge-configurator",
+      "database_id": "ff0e0abb-89df-4939-9db8-018f4b0e828e"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FILES",
+      "bucket_name": "daughtridge-datasheets"
+    }
+  ],
+  "vars": {
+    "OPENAI_MODEL": "gpt-6-astra",
+    "ALLOWED_ORIGINS": "http://localhost:3000"
+  }
+}

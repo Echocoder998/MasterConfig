@@ -1,0 +1,1 @@
+{"version":"2.0.0","tasks":[{"label":"Build configurator","type":"shell","command":"npm run build","group":{"kind":"build","isDefault":true},"problemMatcher":[]},{"label":"Start configurator","type":"shell","command":"npm start","isBackground":true,"problemMatcher":[]}]}

@@ -1,0 +1,21 @@
+{
+  "name": "dasco-product-configurator",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/server.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm run test && npm run build",
+    "cf:migrate": "wrangler d1 migrations apply daughtridge-configurator --remote --config cloudflare/wrangler.jsonc",
+    "deploy:worker": "npm run build && wrangler deploy --config cloudflare/wrangler.jsonc",
+    "deploy:frontend": "npm run build && npx vercel deploy --prod"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "wrangler": "^4.143.0"
+  }
+}
