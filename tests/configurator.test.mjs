@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
 import {validateModel,initialValues,orderCode,blocked,reconcile,issues,clone} from '../src/engine.js';
-import {fromRows,fromWorkbook,parseCsv,pdfCandidates} from '../src/importers.js';
+import {fromRows,fromWorkbook,parseCsv,pdfCandidates,workbookText} from '../src/importers.js';
 const model=JSON.parse(fs.readFileSync(new URL('../src/catalog.json',import.meta.url))).models[0];
 test('seed validates and reproduces manufacturer example',()=>{assert.deepEqual(validateModel(model),[]);const v=initialValues(model);assert.deepEqual(issues(model,v),[]);assert.equal(orderCode(model,v),'451279 S SH 04 L XLL 15#')});
 test('step and field presentation reordering does not alter ordering code',()=>{const m=clone(model),v=initialValues(m);m.steps.reverse();assert.equal(orderCode(m,v),orderCode(model,v));m.steps[1].fields.reverse();assert.equal(orderCode(m,v),orderCode(model,v))});
@@ -16,3 +16,4 @@ test('PDF candidates keep page provenance and remain unapproved',()=>{const m=pd
 test('PDF candidates infer generic ordering sections before ranges',()=>{const m=pdfCandidates([{page:1,text:'ORDERING CODE\nBody Material\nA - Aluminum\nS - Stainless steel\nElectrical Connection\nX1 - Cable gland\nRange\n100# - 0 to 100 psi'}],'Generic');assert.deepEqual(m.steps.map(s=>s.label),['Body Material','Electrical Connection','Range']);assert.equal(m.fields[0].options[1].code,'S');assert.equal(m.fields[1].options[0].code,'X1');assert.equal(m.fields[2].options[0].code,'100#')});
 test('activation validation detects duplicates, dangling rules and missing step assignment',()=>{const m=clone(model);m.fields[0].options.push(clone(m.fields[0].options[0]));m.rules[0].targetCodes=['NOT_A_CODE'];m.steps[0].fields=[];const e=validateModel(m).join(' ');assert.match(e,/Duplicate option/);assert.match(e,/unknown target/);assert.match(e,/exactly one step/)});
 test('invalid multi-select defaults and unknown visibility fields block activation',()=>{const m=clone(model);m.defaultValues.options='LL';m.fields[0].visibleWhen=[{field:'unknown',op:'eq',value:'x'}];const e=validateModel(m).join(' ');assert.match(e,/Invalid default/);assert.match(e,/Invalid visibility/)});
+test('spreadsheet datasheets flatten to readable text for the AI',()=>{const t=workbookText({Ordering:[['Code','Description','Page'],['1GSW','Switch',' 3 '],['','','']],Notes:[['B7 cannot use XPK']]});assert.equal(t,'SHEET: Ordering\nCode\tDescription\tPage\n1GSW\tSwitch\t3\n\nSHEET: Notes\nB7 cannot use XPK')});

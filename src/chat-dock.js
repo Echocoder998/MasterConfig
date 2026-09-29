@@ -4,8 +4,11 @@ import {getSource} from './storage.js';
 import {apiCredentials,apiUrl} from './config.js';
 import {requestAi,progressText,AI_CLIENT_TIMEOUT_MS} from './ai-client.js';
 import {describeChanges} from './assistant.js';
+import {readWorkbook,workbookText} from './importers.js';
 const withoutChat=m=>{const x=clone(m);delete x.chatHistory;return JSON.stringify(x)};
 async function pdfData(d){let b;if(d.sourceId)b=await getSource(d.sourceId);else if(d.sourceUrl&&/^[\w-]+\.pdf$/.test(d.sourceUrl)){const r=await fetch(d.sourceUrl);if(r.ok)b=await r.blob()}if(!b)return null;if(!(b.type==='application/pdf'||/\.pdf$/i.test(d.sourceName||d.sourceUrl||'')))return null;if(b.size>10*1024*1024)throw new Error('AI PDF limit is 10 MB. Split the source by model and attach the smaller PDF.');return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve('data:application/pdf;base64,'+String(r.result).split(',')[1]);r.onerror=()=>reject(new Error('Could not read the source PDF.'));r.readAsDataURL(b)})}
+// Spreadsheet datasheets reach the AI as text; drafts imported before that was saved get it here.
+async function spreadsheetText(d){if(!d.sourceId||!/\.(xlsx|csv)$/i.test(d.sourceName||''))return '';const b=await getSource(d.sourceId);if(!b)return '';return workbookText(await readWorkbook(new File([b],d.sourceName)))}
 // Context from the host page: {kind:'admin',model,setModel,changed,renderPage} while editing a draft,
 // {kind:'sales',model,selections} in the configurator, or null to hide the dock.
 export function createChatDock({getContext,onStatus}){
@@ -50,6 +53,7 @@ ${error?`<div class="error-panel chat-note" role="alert">${esc(error)}</div>`:''
   busy=true;stage=progressText(null);error='';questions=[];undo=null;input='';setHistory(ctx,[...prior,{role:'user',text:message}]);if(admin)ctx.changed();render();
   let timeout=null;
   try{
+   if(admin&&!base.sourceText){const text=await spreadsheetText(base);if(text){base.sourceText=text;ctx.model.sourceText=text}}
    const pdf=admin?await pdfData(base):null;
    abort=new AbortController();startTimer();timeout=setTimeout(()=>{timedOut=true;abort?.abort()},AI_CLIENT_TIMEOUT_MS);
    const body=admin?{model:base,message,history:prior,pdf,scope:rulesOnly?'rules':'model'}:{model:base,message,history:prior,scope:'sales',selections:ctx.selections?.()||''};
