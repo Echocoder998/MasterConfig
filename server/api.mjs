@@ -1,8 +1,9 @@
-import { getProposal, streamProposal, wantsStream, DEFAULT_MODEL } from './ai.mjs';
+import { startBackground, pollBackground, cancelBackground, DEFAULT_MODEL } from './ai.mjs';
 import { validateModel } from '../src/engine.js';
 
 const SESSION_COOKIE = 'dasco_session';
 const SESSION_SECONDS = 8 * 60 * 60;
+const JOB_SECONDS = 60 * 60;
 const MAX_JSON_BYTES = 17 * 1024 * 1024;
 const MAX_SOURCE_BYTES = 20 * 1024 * 1024;
 const encoder = new TextEncoder();
@@ -272,6 +273,30 @@ async function aiStatus(request, env) {
   return json(request, env, { configured: !!env.OPENAI_API_KEY, model: env.OPENAI_MODEL || DEFAULT_MODEL, canEdit: session.role === 'admin' });
 }
 
+// AI jobs run in OpenAI background mode. The browser holds a signed token naming the
+// OpenAI response, the role that started it and its scope, and polls with it.
+async function signJob(data, env) {
+  if (!env.SESSION_SECRET) throw new Error('SESSION_SECRET is not configured.');
+  const payload = base64urlJson({ ...data, exp: Math.floor(Date.now() / 1000) + JOB_SECONDS });
+  return payload + '.' + base64url(await hmac(env.SESSION_SECRET, 'ai-job:' + payload));
+}
+
+async function verifyJob(token, session, env) {
+  const denied = () => Object.assign(new Error('This AI request is not valid for your session.'), { status: 403 });
+  const [payload, signature] = String(token || '').split('.');
+  if (!payload || !signature || !env.SESSION_SECRET) throw denied();
+  if (signature !== base64url(await hmac(env.SESSION_SECRET, 'ai-job:' + payload))) throw denied();
+  let data;
+  try { data = JSON.parse(new TextDecoder().decode(fromBase64url(payload))); } catch { throw denied(); }
+  if (!data.responseId || data.role !== session.role) throw denied();
+  if (Number(data.exp) < Date.now() / 1000) throw Object.assign(new Error('This AI request expired. Send it again.'), { status: 410 });
+  return data;
+}
+
+function aiError(request, env, e) {
+  return json(request, env, { error: e.name === 'TimeoutError' ? 'The AI service did not respond in time. Retry.' : e.message }, e.status || 400);
+}
+
 async function aiChat(request, env) {
   const session = await requireAuth(request, env);
   if (!env.OPENAI_API_KEY) return json(request, env, { error: 'AI is not connected. Configure the server-side OpenAI API key to enable chat.' }, 503);
@@ -280,10 +305,34 @@ async function aiChat(request, env) {
     // Sales can ask questions but never receive model edits or send PDFs.
     if (session.role !== 'admin') body.scope = 'sales';
     if (body.scope === 'sales') delete body.pdf;
-    if (wantsStream(request)) return streamProposal(body, env, corsHeaders(request, env));
-    return json(request, env, await getProposal(body, env));
+    const started = await startBackground(body, env);
+    const job = await signJob({ responseId: started.responseId, role: session.role, scope: body.scope || 'model' }, env);
+    return json(request, env, { job, status: started.status });
   } catch (e) {
-    return json(request, env, { error: e.name === 'TimeoutError' ? 'AI request timed out. No changes were applied.' : e.message }, 400);
+    return aiError(request, env, e);
+  }
+}
+
+async function aiJob(request, env) {
+  const session = await requireAuth(request, env);
+  try {
+    const body = await readJson(request);
+    const job = await verifyJob(body.job, session, env);
+    // Scope comes from the signed token, so a sales job can never return model edits.
+    return json(request, env, await pollBackground(job.responseId, { model: body.model, scope: job.scope }, env));
+  } catch (e) {
+    return aiError(request, env, e);
+  }
+}
+
+async function aiJobCancel(request, env) {
+  const session = await requireAuth(request, env);
+  try {
+    const job = await verifyJob((await readJson(request)).job, session, env);
+    await cancelBackground(job.responseId, env);
+    return json(request, env, { ok: true });
+  } catch (e) {
+    return aiError(request, env, e);
   }
 }
 
@@ -314,6 +363,8 @@ export async function handleApi(request, env, { seedCatalog } = {}) {
     if (url.pathname === '/api/catalog' && request.method === 'PUT') return await writeCatalog(request, env);
     if (url.pathname === '/api/ai/status' && request.method === 'GET') return await aiStatus(request, env);
     if (url.pathname === '/api/ai/chat' && request.method === 'POST') return await aiChat(request, env);
+    if (url.pathname === '/api/ai/jobs' && request.method === 'POST') return await aiJob(request, env);
+    if (url.pathname === '/api/ai/jobs/cancel' && request.method === 'POST') return await aiJobCancel(request, env);
     if (url.pathname.startsWith('/api/sources/')) {
       const id = sourceIdFromPath(url.pathname);
       if (request.method === 'PUT') return await putSource(request, env, id);

@@ -67,7 +67,7 @@ ${error?`<div class="error-panel chat-note" role="alert">${esc(error)}</div>`:''
     else{reply.changes=describeChanges(base,result.proposal);now.setModel({...result.proposal,adminInstructions:now.model.adminInstructions,chatHistory:now.model.chatHistory});undo={modelId,before:base}}
    }
    const target=getContext();setHistory(target,[...history(target),reply]);target.changed();target.renderPage();
-  }catch(e){error=e.name==='AbortError'?(timedOut?'AI request timed out after 16 minutes. No changes were applied. Try a narrower request.':'AI request canceled. No changes were applied.'):e.message}
+  }catch(e){error=e.name==='AbortError'?(timedOut?'AI request timed out after 20 minutes. No changes were applied. Try a narrower request.':'AI request canceled. No changes were applied.'):e.message}
   finally{clearTimeout(timeout);stopTimer();busy=false;render()}
  }
  function reset(){if(busy)return;error='';questions=[];undo=null;input=''}
