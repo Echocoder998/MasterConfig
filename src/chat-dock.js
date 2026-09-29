@@ -60,7 +60,7 @@ ${error?`<div class="error-panel chat-note" role="alert">${esc(error)}</div>`:''
    const subject=admin?'draft and datasheet':'configuration';
    const result=await requestAi(body,{signal:abort.signal,onProgress:p=>{stage=progressText(p,subject);const el=$('chat-stage');if(el)el.textContent=stage}});
    const now=getContext(),reply={role:'assistant',text:result.reply};
-   questions=result.questions||[];
+   questions=result.proposal?.reviewQuestions||result.questions||[];
    if(!admin){salesHistory.set(modelId,[...(salesHistory.get(modelId)||[]),reply].slice(-30));return}
    if(now?.kind!=='admin'||now.model.id!==modelId){error='The model changed while the AI was responding. No changes were applied.';return}
    if(result.validationError)error='The AI suggested changes that failed validation, so nothing was applied: '+result.validationError;
