@@ -8,3 +8,5 @@ cloudflare/.wrangler/
 .env
 .env.*
 !.env.example
+dist/
+verification/

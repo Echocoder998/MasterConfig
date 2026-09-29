@@ -1,8 +1,10 @@
+import { canonical, timestampCatalog } from './model-data.js';
 import { apiCredentials, apiUrl, hostedWithoutApi, usesSharedStorage } from './config.js';
 
 const DB = 'dasco-configurator-v2';
 let opening;
 let catalogRevision = null;
+let catalogSnapshot = null;
 
 function hostedConfigError() {
   return new Error('PUBLIC_API_BASE_URL is not configured. Hosted builds must use the shared Cloudflare backend and cannot fall back to browser-only storage.');
@@ -79,16 +81,43 @@ export async function loadCatalog() {
     catalogRevision = catalog.revision;
     return catalog.models;
   }
-  return operation('catalog', 'readonly', 'models');
+  const models = await operation('catalog', 'readonly', 'models');
+  catalogSnapshot = models ?? null;
+  return models;
 }
 
-export async function saveCatalog(models) {
+// Freshness reads must not advance the optimistic revision used by catalog saves.
+export async function readStoredModel(id) {
+  const models = usesSharedStorage() ? (await remoteJson('/api/catalog')).models : await operation('catalog', 'readonly', 'models');
+  return models == null ? undefined : models.find(m => m.id === id) || null;
+}
+export async function saveCatalog(models, initialModels = []) {
   if (usesSharedStorage()) {
     const catalog = await remoteJson('/api/catalog', { method: 'PUT', body: JSON.stringify({ revision: catalogRevision, models }) });
     catalogRevision = catalog.revision;
-    return;
+    return catalog.models;
   }
-  return operation('catalog', 'readwrite', 'models', models);
+  if (hostedWithoutApi()) throw hostedConfigError();
+  const db = await open();
+  const saved = await new Promise((resolve, reject) => {
+    const transaction = db.transaction('catalog', 'readwrite');
+    const store = transaction.objectStore('catalog');
+    const read = store.get('models');
+    let next, conflict;
+    read.onsuccess = () => {
+      const current = read.result ?? null;
+      if (canonical(current) !== canonical(catalogSnapshot)) {
+        conflict = new Error('The catalog changed in another tab. Reload before saving.');
+        transaction.abort(); return;
+      }
+      next = timestampCatalog(models, current ?? initialModels);
+      store.put(next, 'models');
+    };
+    transaction.oncomplete = () => resolve(next);
+    transaction.onerror = transaction.onabort = () => reject(conflict || transaction.error || new Error('Catalog save failed.'));
+  });
+  catalogSnapshot = saved;
+  return saved;
 }
 
 export async function saveSource(id, file) {

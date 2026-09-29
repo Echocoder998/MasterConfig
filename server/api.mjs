@@ -1,3 +1,4 @@
+import { timestampCatalog } from '../src/model-data.js';
 import { startBackground, pollBackground, cancelBackground, DEFAULT_MODEL } from './ai.mjs';
 import { validateModel } from '../src/engine.js';
 
@@ -168,13 +169,14 @@ async function saveRuleRows(env, models) {
   const statements = [env.DB.prepare('DELETE FROM model_rules')];
   for (const model of models) {
     for (const rule of model.rules || []) {
-      statements.push(env.DB.prepare('INSERT INTO model_rules (id,model_id,action,target_field,data,updated_at) VALUES (?,?,?,?,?,?)').bind(rule.id || crypto.randomUUID(), model.id, rule.action || '', rule.targetField || '', JSON.stringify(rule), new Date().toISOString()));
+      statements.push(env.DB.prepare('INSERT INTO model_rules (id,model_id,action,target_field,data,updated_at) VALUES (?,?,?,?,?,?)').bind(model.id + ':' + (rule.id || crypto.randomUUID()), model.id, rule.action || '', rule.targetField || '', JSON.stringify(rule), new Date().toISOString()));
     }
   }
   await env.DB.batch(statements);
 }
 
 async function ensureSeed(env, seedCatalog) {
+  if (await getRevision(env)) return;
   const count = await env.DB.prepare('SELECT COUNT(*) AS count FROM models').first();
   if (Number(count?.count || 0) || !seedCatalog?.models?.length) return;
   const statements = seedCatalog.models.map((model, position) => env.DB.prepare('INSERT INTO models (id,data,position) VALUES (?,?,?)').bind(model.id, JSON.stringify(model), position));
@@ -200,18 +202,22 @@ async function writeCatalog(request, env) {
   if (body.revision !== current) return json(request, env, { error: 'The shared catalog changed after this page loaded. Reload, review the latest catalog, then apply your changes again.' }, 409);
   const errors = validateSavedModels(body.models);
   if (errors.length) return json(request, env, { error: errors.slice(0, 10).join(' ') }, 400);
-  const ids = body.models.map(m => m.id);
-  const statements = [];
-  if (ids.length) statements.push(env.DB.prepare(`DELETE FROM models WHERE id NOT IN (${ids.map(() => '?').join(',')})`).bind(...ids));
-  else statements.push(env.DB.prepare('DELETE FROM models'));
-  for (const [position, model] of body.models.entries()) {
-    statements.push(env.DB.prepare('INSERT INTO models (id,data,position) VALUES (?,?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data,position=excluded.position').bind(model.id, JSON.stringify(model), position));
+  const rows = await env.DB.prepare('SELECT data FROM models ORDER BY position').all();
+  const now = new Date().toISOString();
+  const models = timestampCatalog(body.models, (rows.results || []).map(row => JSON.parse(row.data)), now);
+  const ids = models.map(m => m.id), writeId = crypto.randomUUID();
+  const guard = 'EXISTS (SELECT 1 FROM catalog_state WHERE id = 1 AND write_id = ?)';
+  // One D1 transaction: timestamps, model data, rules and the optimistic revision.
+  const statements = [env.DB.prepare('UPDATE catalog_state SET revision = revision + 1, write_id = ? WHERE id = 1 AND revision = ?').bind(writeId, current)];
+  statements.push(env.DB.prepare('DELETE FROM model_rules WHERE ' + guard).bind(writeId));
+  statements.push(env.DB.prepare('DELETE FROM models WHERE ' + guard + (ids.length ? ' AND id NOT IN (' + ids.map(() => '?').join(',') + ')' : '')).bind(writeId, ...ids));
+  for (const [position, model] of models.entries()) {
+    statements.push(env.DB.prepare('INSERT INTO models (id,data,position) SELECT ?,?,? WHERE ' + guard + ' ON CONFLICT(id) DO UPDATE SET data=excluded.data,position=excluded.position').bind(model.id, JSON.stringify(model), position, writeId));
+    for (const rule of model.rules || []) statements.push(env.DB.prepare('INSERT INTO model_rules (id,model_id,action,target_field,data,updated_at) SELECT ?,?,?,?,?,? WHERE ' + guard).bind(model.id + ':' + (rule.id || crypto.randomUUID()), model.id, rule.action || '', rule.targetField || '', JSON.stringify(rule), now, writeId));
   }
-  await env.DB.batch(statements);
-  await saveRuleRows(env, body.models);
-  const nextRevision = current + 1;
-  await setRevision(env, nextRevision);
-  return json(request, env, { ok: true, revision: nextRevision });
+  const result = await env.DB.batch(statements);
+  if (!result[0].meta.changes) return json(request, env, { error: 'The shared catalog changed while saving. Reload and review the latest model.' }, 409);
+  return json(request, env, { ok: true, revision: current + 1, models });
 }
 
 function sourceIdFromPath(pathname) {

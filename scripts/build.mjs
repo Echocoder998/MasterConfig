@@ -18,7 +18,8 @@ ai = ai.replace("'../src/engine.js'", "'./engine.js'");
 await writeFile(path.join(serverDir, 'ai.mjs'), ai);
 
 let api = await readFile('server/api.mjs', 'utf8');
-api = api.replace("'../src/engine.js'", "'./engine.js'");
+api = api.replace("'../src/engine.js'", "'./engine.js'").replace("'../src/model-data.js'", "'./model-data.js'");
+await cp('src/model-data.js', path.join(serverDir, 'model-data.js'));
 await writeFile(path.join(serverDir, 'api.mjs'), api);
 await cp('src/engine.js', path.join(serverDir, 'engine.js'));
 

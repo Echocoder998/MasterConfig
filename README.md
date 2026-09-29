@@ -1,5 +1,23 @@
 # Daughtridge Product Configurator
 
+## Proposal review, model management and entry animation
+
+AI datasheet imports, admin chat edits and rules requests now open a structured **Review proposed changes** screen. The comparison is generated from model data, grouped into model information, step sequence, fields/options, compatibility rules and other settings. It includes validation, source references and warnings for removed choices, ordering-code changes and restrictions. **Apply proposal** accepts the complete proposal into the **unsaved draft**; **Discard proposal** leaves model data unchanged. Save/activate remain separate, with the existing source-review requirement. Recent chat is kept separately until an explicit model save.
+
+Editing while a proposal is pending blocks application until **Refresh comparison** is selected and the replacement is reviewed again. A model saved or deleted in another tab/session blocks application and requires reopening the latest model and requesting a new proposal. Saved-catalog revisions are also checked during persistence.
+
+Admin's model list supports name/ID/base-code/manufacturer search; combined manufacturer, status and updated-date filters; inclusive custom dates in the user's local timezone; unknown legacy dates; counts, reset and name/date sorting. Mobile layouts show the same information and actions as cards.
+
+The existing entry screen has a lightweight CSS logo entrance and instrumentation line accent. The original logo asset is unchanged. The entrance runs once per page mount; reduced-motion users see a static composition. No animation dependency or extra landing route was added.
+
+**Storage and setup:** hosted builds retain the Vercel static frontend and authenticated Cloudflare D1/R2 backend. UTC timestamps live in each model's existing JSON, so **no schema migration or new environment variables are required**. Cloud saves use the Worker's clock and one transaction for models, rules and revision; local saves use an IndexedDB transaction and the browser clock. Only changed/new models receive a new updatedAt. Existing timestamps are preserved; undated legacy records stay unknown until edited and saved. A failed write does not publish timestamps or editor state. The normal frontend and Worker build must both be used when deploying this version; this change does not deploy them.
+
+**Implementation:** src/proposal.js and src/proposal-review.js handle comparisons/application; src/model-list.js handles filtering; src/model-data.js, src/storage.js and server/api.mjs handle timestamps and persistence. src/admin.js and src/chat-dock.js connect the workflows. src/index.html and src/improvements.css provide the entry and responsive review/list layouts. scripts/build.mjs includes the shared timestamp helper in the Worker output.
+
+**Verification:** run npm run check for unit/persistence tests and the build. SQLite persistence tests use Node's bundled node:sqlite (verified on Node 24). Optional browser tests require Playwright available locally and a running built local site on port 3017 (or TEST_BASE_URL); run npm run test:ui. PLAYWRIGHT_MODULE may point to an existing Playwright module URL, and BROWSER_EXECUTABLE may select an installed browser. These tests use isolated browser contexts and mock AI responses, exercise PDF/CSV imports, rules, stale proposals, save separation, cross-tab conflicts, mobile layouts and reduced motion, and save screenshots under verification/. No live AI call or production deployment is part of verification.
+
+The older sections below also describe the original local prototype.
+
 A portable, browser-based prototype for adding instrument models from Excel or text-based PDF datasheets and configuring them in an editable sequence. The original Ashcroft 1279 model is included.
 
 ## Open in VS Code
@@ -111,7 +129,7 @@ Admin → Edit model → Instructions & AI chat provides:
 - An exact section-order editor that works without AI and preserves ordering-code positions.
 - Free-form questions and requested edits, when the server's OpenAI API connection is configured.
 - The current model, saved instructions, recent chat, and the original PDF sent to the model. PDF vision uses high detail for applicability matrices. Source PDFs sent to AI are limited to 10 MB.
-- A proposed model and change summary with Apply to draft / Discard controls. Nothing activates automatically.
+- A proposed model and change summary with Apply proposal / Discard proposal controls. Nothing activates automatically.
 - Source-page references and unresolved questions. Validation checks structure and references, not engineering correctness.
 
 The default API model is `gpt-6-astra` with high reasoning. `OPENAI_MODEL` can be set on the server. The model must support Responses API, PDF/image input, reasoning and structured output. Changing a model does not substitute for reviewing the manufacturer's restrictions.
