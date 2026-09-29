@@ -1,6 +1,7 @@
 import { validateModel } from '../src/engine.js';
 
 export const DEFAULT_MODEL = 'gpt-6-astra';
+const AI_TIMEOUT_MS = 240000;
 const responseSchema = {
   type: 'object', additionalProperties: false,
   properties: {
@@ -31,10 +32,26 @@ export function normalizeProposal(proposed, current, questions = []) {
   return next;
 }
 
+function compactModelForPrompt(model, hasPdf) {
+  const current = { ...model };
+  delete current.chatHistory;
+  if (typeof current.sourceText === 'string') {
+    if (hasPdf) current.sourceText = `[omitted because the source PDF is attached; extracted text length ${current.sourceText.length} characters]`;
+    else if (current.sourceText.length > 50000) current.sourceText = current.sourceText.slice(0, 50000) + '\n[truncated extracted source text]';
+  }
+  return current;
+}
+
+function requestInstructions(scope) {
+  if (scope === 'rules') return '\nRULES-ONLY REQUEST: Change only the rules array. Preserve existing rules unless explicitly asked to edit or remove them. Use the existing field IDs and codes. For an incompatible pair add reciprocal exclusion rules so either selection order is protected. Use contains for multi-choice conditions. For requirements, require means ALL targetCodes, not any one of them. If the user means any one of several choices ask for clarification rather than creating an impossible requirement. User-provided restrictions may be used as admin policy; do not invent datasheet page citations. Ask about ambiguous option names.';
+  if (scope === 'import') return '\nINITIAL IMPORT REQUEST: Build a complete first draft from the attached datasheet. Use the provisional extracted draft only as a starting point. Correct section names, ordering sequence, field types, options, ranges, defaults, source pages and compatibility rules from the PDF. Preserve sourceId, sourceName and sourceText. Keep the model as draft and ask questions for ambiguous manufacturer restrictions.';
+  return '';
+}
+
 export function makeRequest(body, modelName = DEFAULT_MODEL) {
   if (!body?.model || !body.message?.trim()) throw new Error('A model and instruction are required.');
   if (body.message.length > 12000) throw new Error('Keep each instruction under 12,000 characters.');
-  const current = { ...body.model }; delete current.chatHistory;
+  const current = compactModelForPrompt(body.model, Boolean(body.pdf));
   const text = `SAVED ADMIN INSTRUCTIONS:\n${String(current.adminInstructions || '').slice(0, 20000)}\nCURRENT MODEL:\n${JSON.stringify(current)}\nLATEST USER INSTRUCTION:\n${body.message}`;
   if (text.length > 700000) throw new Error('Model context is too large. Split this datasheet by model.');
   const content = [{ type: 'input_text', text }];
@@ -42,7 +59,7 @@ export function makeRequest(body, modelName = DEFAULT_MODEL) {
     if (!/^data:application\/pdf;base64,[A-Za-z0-9+/=\r\n]+$/.test(body.pdf) || body.pdf.length > 15 * 1024 * 1024) throw new Error('AI PDF input must be a PDF under 10 MB.');
     content.push({ type: 'input_file', filename: 'source-datasheet.pdf', file_data: body.pdf, detail: 'high' });
   }
-  return { model: modelName, instructions: instructions+(body.scope==='rules'?'\nRULES-ONLY REQUEST: Change only the rules array. Preserve existing rules unless explicitly asked to edit or remove them. Use the existing field IDs and codes. For an incompatible pair add reciprocal exclusion rules so either selection order is protected. Use contains for multi-choice conditions. For requirements, require means ALL targetCodes, not any one of them. If the user means any one of several choices ask for clarification rather than creating an impossible requirement. User-provided restrictions may be used as admin policy; do not invent datasheet page citations. Ask about ambiguous option names.':'') , store: false, reasoning: { effort: 'high' }, max_output_tokens: 24000,
+  return { model: modelName, instructions: instructions + requestInstructions(body.scope), store: false, reasoning: { effort: 'high' }, max_output_tokens: 24000,
     input: [...(body.history || []).slice(-10).filter(m=>['user','assistant'].includes(m.role)&&typeof m.text==='string').map(m=>({role:m.role,content:m.text.slice(0,12000)})), { role:'user', content }],
     text: { format: { type: 'json_schema', name: 'configuration_proposal', strict: true, schema: responseSchema } } };
 }
@@ -52,7 +69,7 @@ export async function getProposal(body, env, request = fetch) {
   const payload = makeRequest(body, env.OPENAI_MODEL || DEFAULT_MODEL);
   const response = await request('https://api.openai.com/v1/responses', {
     method: 'POST', headers: { Authorization: 'Bearer ' + env.OPENAI_API_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload), signal: AbortSignal.timeout(180000)
+    body: JSON.stringify(payload), signal: AbortSignal.timeout(AI_TIMEOUT_MS)
   });
   if (!response.ok) {
     const messages = {401:'AI credentials were rejected. Check the server API key.',403:'This API project cannot access the selected model.',429:'AI rate or spending limit reached. Check the API account or retry later.'};
