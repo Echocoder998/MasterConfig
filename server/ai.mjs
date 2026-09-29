@@ -1,4 +1,4 @@
-import { validateModel } from '../src/engine.js';
+import { repairFieldIds, validateModel } from '../src/engine.js';
 
 export const DEFAULT_MODEL = 'gpt-6-astra';
 const AI_TIMEOUT_MS = 240000;
@@ -22,7 +22,7 @@ Keep current model id. If changing codes or fields, update affected rules and de
 
 export function normalizeProposal(proposed, current, questions = []) {
   if (!proposed || typeof proposed !== 'object' || Array.isArray(proposed)) throw new Error('AI returned an invalid model.');
-  const next = { ...proposed, id: current.id, status: 'draft', adminInstructions: current.adminInstructions || '', chatHistory: current.chatHistory || [], reviewQuestions: questions };
+  const next = repairFieldIds({ ...proposed, id: current.id, status: 'draft', adminInstructions: current.adminInstructions || '', chatHistory: current.chatHistory || [], reviewQuestions: questions });
   for (const key of ['sourceId', 'sourceName', 'sourceUrl', 'sourceText']) {
     if (current[key] !== undefined) next[key] = current[key]; else delete next[key];
   }
@@ -45,6 +45,7 @@ function compactModelForPrompt(model, hasPdf) {
 function requestInstructions(scope) {
   if (scope === 'rules') return '\nRULES-ONLY REQUEST: Change only the rules array. Preserve existing rules unless explicitly asked to edit or remove them. Use the existing field IDs and codes. For an incompatible pair add reciprocal exclusion rules so either selection order is protected. Use contains for multi-choice conditions. For requirements, require means ALL targetCodes, not any one of them. If the user means any one of several choices ask for clarification rather than creating an impossible requirement. User-provided restrictions may be used as admin policy; do not invent datasheet page citations. Ask about ambiguous option names.';
   if (scope === 'import') return '\nINITIAL IMPORT REQUEST: Build a complete first draft from the attached datasheet. Use the provisional extracted draft only as a starting point. Correct section names, ordering sequence, field types, options, ranges, defaults, source pages and compatibility rules from the PDF. Preserve sourceId, sourceName and sourceText. Keep the model as draft and ask questions for ambiguous manufacturer restrictions.';
+  if (scope === 'sales') return '\nSALES QUESTION: You are now helping a salesperson configure this product. Answer questions about options, compatibility, restrictions and ordering codes using only the current model data, its rules and the source text. The salesperson\'s current selections are included. Explain why an option is unavailable by citing the rule. If the model data does not answer the question, say so and point to the datasheet page if known. Never invent compatibility or codes. You cannot change the model: proposal_json must always be null. Keep replies short and practical.';
   return '';
 }
 
@@ -52,14 +53,16 @@ export function makeRequest(body, modelName = DEFAULT_MODEL) {
   if (!body?.model || !body.message?.trim()) throw new Error('A model and instruction are required.');
   if (body.message.length > 12000) throw new Error('Keep each instruction under 12,000 characters.');
   const current = compactModelForPrompt(body.model, Boolean(body.pdf));
-  const text = `SAVED ADMIN INSTRUCTIONS:\n${String(current.adminInstructions || '').slice(0, 20000)}\nCURRENT MODEL:\n${JSON.stringify(current)}\nLATEST USER INSTRUCTION:\n${body.message}`;
+  const sales = body.scope === 'sales';
+  const selections = sales && body.selections ? `\nCURRENT SALES SELECTIONS:\n${String(body.selections).slice(0, 20000)}` : '';
+  const text = `SAVED ADMIN INSTRUCTIONS:\n${String(current.adminInstructions || '').slice(0, 20000)}\nCURRENT MODEL:\n${JSON.stringify(current)}${selections}\n${sales ? 'SALESPERSON QUESTION' : 'LATEST USER INSTRUCTION'}:\n${body.message}`;
   if (text.length > 700000) throw new Error('Model context is too large. Split this datasheet by model.');
   const content = [{ type: 'input_text', text }];
   if (body.pdf) {
     if (!/^data:application\/pdf;base64,[A-Za-z0-9+/=\r\n]+$/.test(body.pdf) || body.pdf.length > 15 * 1024 * 1024) throw new Error('AI PDF input must be a PDF under 10 MB.');
     content.push({ type: 'input_file', filename: 'source-datasheet.pdf', file_data: body.pdf, detail: 'high' });
   }
-  return { model: modelName, instructions: instructions + requestInstructions(body.scope), store: false, reasoning: { effort: 'high' }, max_output_tokens: 24000,
+  return { model: modelName, instructions: instructions + requestInstructions(body.scope), store: false, reasoning: { effort: sales ? 'medium' : 'high' }, max_output_tokens: sales ? 6000 : 24000,
     input: [...(body.history || []).slice(-10).filter(m=>['user','assistant'].includes(m.role)&&typeof m.text==='string').map(m=>({role:m.role,content:m.text.slice(0,12000)})), { role:'user', content }],
     text: { format: { type: 'json_schema', name: 'configuration_proposal', strict: true, schema: responseSchema } } };
 }
@@ -82,7 +85,7 @@ export async function getProposal(body, env, request = fetch) {
   let result; try { result = JSON.parse(output); } catch { throw new Error('The AI response was not valid structured data. No changes were applied.'); }
   if (typeof result.reply !== 'string' || !Array.isArray(result.questions)) throw new Error('Unexpected AI response format.');
   let proposal=null;
-  if (result.proposal_json) {
+  if (result.proposal_json && body.scope !== 'sales') {
     try { proposal=normalizeProposal(body.scope==='rules'?{...body.model,rules:JSON.parse(result.proposal_json).rules}:JSON.parse(result.proposal_json),body.model,result.questions); }
     catch (e) { return { reply: result.reply, questions: result.questions, proposal: null, validationError: e.message, model: payload.model }; }
   }

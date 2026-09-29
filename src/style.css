@@ -22,3 +22,29 @@ nav button:hover{background:#3b3b3b;color:#fff}nav button.active:hover{backgroun
 .layout,.admin-layout{min-height:calc(100vh - 100px)}
 @media(max-width:900px){header{gap:16px;padding:18px 24px}.brand{flex-basis:310px}.header-label{display:none}}
 @media(max-width:650px){header{padding:16px;gap:14px}.brand{flex:1 1 100%;min-width:0}.brand img{width:min(100%,365px)}.mode-switch{margin-left:0}.mode-switch .quiet{font-size:14px;padding:10px 16px}.layout,.admin-layout{min-height:0}}
+#chat-dock{position:fixed;right:24px;bottom:24px;z-index:15;display:flex;justify-content:flex-end}
+.chat-launcher{display:flex;align-items:center;gap:10px;background:#a50000;color:#fff;border:0;border-radius:999px;padding:14px 22px;font-size:15px;font-weight:700;box-shadow:0 8px 24px #0003}
+.chat-launcher:hover{background:#800000}
+.chat-launcher-icon{font-size:16px}
+.chat-panel{width:min(420px,calc(100vw - 32px));height:min(640px,calc(100vh - 120px));background:#fff;border:1px solid #d4d4d4;border-radius:10px;box-shadow:0 16px 48px #0000003d;display:flex;flex-direction:column;overflow:hidden}
+.chat-head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#242424;color:#fff;padding:14px 16px}
+.chat-head b{display:block;font-size:15px}
+.chat-head span{display:block;font-size:12px;color:#d0d0d0;margin-top:3px}
+.chat-close{background:none;border:0;color:#fff;font-size:18px;padding:6px 10px;border-radius:4px}
+.chat-close:hover{background:#ffffff26}
+.chat-panel .chat-log{flex:1;margin:0;max-height:none;padding:16px}
+.chat-panel .chat-log .info-panel{margin-top:0}
+.chat-panel .chat-message{max-width:88%;padding:12px 14px}
+.chat-panel .chat-message p{margin:6px 0 0}
+.chat-changes{margin-top:10px;border-top:1px solid #dedede;padding-top:8px;font-size:13px}
+.chat-changes ul{margin:4px 0 0;padding-left:18px}
+.chat-working .text-button{padding:4px 0}
+.chat-note{margin:0 16px 10px;padding:10px 12px;font-size:13px;max-height:140px;overflow:auto}
+.chat-note ul{margin:4px 0 0;padding-left:18px}
+.chat-undo{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#e8f5ef;border:1px solid #b8d8ca;border-radius:6px}
+.chat-form{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end;border-top:1px solid #dedede;padding:12px 16px 4px}
+.chat-form .check-label{grid-column:1/-1;font-size:13px}
+.chat-form textarea{font:inherit;font-size:14px;width:100%;resize:none;border:1px solid #d4d4d4;border-radius:6px;padding:10px}
+.chat-form .primary{width:auto;margin:0}
+.chat-foot{font-size:11px;color:#666;margin:4px 16px 12px}
+@media(max-width:650px){#chat-dock{right:12px;bottom:12px}.chat-panel{height:calc(100vh - 110px)}}

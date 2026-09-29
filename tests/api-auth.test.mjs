@@ -34,14 +34,29 @@ test('signed sessions distinguish sales and admin permissions', async () => {
   const salesAi = await handleApi(new Request('https://api.example.com/api/ai/status', {
     headers: { origin: 'https://app.example.com', cookie: sales.cookie }
   }), env);
-  assert.equal(salesAi.status, 403);
+  assert.equal(salesAi.status, 200);
+  assert.equal((await salesAi.json()).canEdit, false);
+
+  const salesChat = await handleApi(new Request('https://api.example.com/api/ai/chat', {
+    method: 'POST',
+    headers: { origin: 'https://app.example.com', cookie: sales.cookie, 'content-type': 'application/json' },
+    body: JSON.stringify({ model: { id: 'x' }, message: 'hi' })
+  }), env);
+  assert.equal(salesChat.status, 503);
+
+  const anonymousChat = await handleApi(new Request('https://api.example.com/api/ai/chat', {
+    method: 'POST',
+    headers: { origin: 'https://app.example.com', 'content-type': 'application/json' },
+    body: JSON.stringify({ model: { id: 'x' }, message: 'hi' })
+  }), env);
+  assert.equal(anonymousChat.status, 401);
 
   const admin = await login('admin', env.ADMIN_PASSWORD);
   const adminAi = await handleApi(new Request('https://api.example.com/api/ai/status', {
     headers: { origin: 'https://app.example.com', cookie: admin.cookie }
   }), env);
   assert.equal(adminAi.status, 200);
-  assert.deepEqual(await adminAi.json(), { configured: false, model: 'gpt-test' });
+  assert.deepEqual(await adminAi.json(), { configured: false, model: 'gpt-test', canEdit: true });
 });
 
 test('worker rejects unlisted browser origins', async () => {

@@ -268,15 +268,19 @@ async function deleteSourceFile(request, env, id) {
 }
 
 async function aiStatus(request, env) {
-  await requireAdmin(request, env);
-  return json(request, env, { configured: !!env.OPENAI_API_KEY, model: env.OPENAI_MODEL || DEFAULT_MODEL });
+  const session = await requireAuth(request, env);
+  return json(request, env, { configured: !!env.OPENAI_API_KEY, model: env.OPENAI_MODEL || DEFAULT_MODEL, canEdit: session.role === 'admin' });
 }
 
 async function aiChat(request, env) {
-  await requireAdmin(request, env);
+  const session = await requireAuth(request, env);
   if (!env.OPENAI_API_KEY) return json(request, env, { error: 'AI is not connected. Configure the server-side OpenAI API key to enable chat.' }, 503);
   try {
-    return json(request, env, await getProposal(await readJson(request), env));
+    const body = await readJson(request);
+    // Sales can ask questions but never receive model edits or send PDFs.
+    if (session.role !== 'admin') body.scope = 'sales';
+    if (body.scope === 'sales') delete body.pdf;
+    return json(request, env, await getProposal(body, env));
   } catch (e) {
     return json(request, env, { error: e.name === 'TimeoutError' ? 'AI request timed out. No changes were applied.' : e.message }, 400);
   }
