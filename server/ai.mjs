@@ -1,7 +1,8 @@
 import { repairFieldIds, validateModel } from '../src/engine.js';
 
 export const DEFAULT_MODEL = 'gpt-6-astra';
-const AI_TIMEOUT_MS = 240000;
+// Long datasheets with high reasoning can take many minutes; streaming keeps the connection alive.
+const AI_TIMEOUT_MS = 15 * 60 * 1000;
 const responseSchema = {
   type: 'object', additionalProperties: false,
   properties: {
@@ -62,14 +63,38 @@ export function makeRequest(body, modelName = DEFAULT_MODEL) {
     if (!/^data:application\/pdf;base64,[A-Za-z0-9+/=\r\n]+$/.test(body.pdf) || body.pdf.length > 15 * 1024 * 1024) throw new Error('AI PDF input must be a PDF under 10 MB.');
     content.push({ type: 'input_file', filename: 'source-datasheet.pdf', file_data: body.pdf, detail: 'high' });
   }
-  return { model: modelName, instructions: instructions + requestInstructions(body.scope), store: false, reasoning: { effort: sales ? 'medium' : 'high' }, max_output_tokens: sales ? 6000 : 24000,
+  return { model: modelName, instructions: instructions + requestInstructions(body.scope), store: false, reasoning: { effort: sales ? 'medium' : 'high' }, max_output_tokens: sales ? 16000 : 100000,
     input: [...(body.history || []).slice(-10).filter(m=>['user','assistant'].includes(m.role)&&typeof m.text==='string').map(m=>({role:m.role,content:m.text.slice(0,12000)})), { role:'user', content }],
     text: { format: { type: 'json_schema', name: 'configuration_proposal', strict: true, schema: responseSchema } } };
 }
 
-export async function getProposal(body, env, request = fetch) {
+// Reads an OpenAI Responses server-sent event stream, reporting progress as it goes.
+async function readEventStream(response, onProgress) {
+  const reader = response.body.getReader(), decoder = new TextDecoder();
+  let buffer = '', text = '', final = null;
+  onProgress({ stage: 'reading' });
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    let end;
+    while ((end = buffer.indexOf('\n\n')) >= 0) {
+      const data = buffer.slice(0, end).split('\n').filter(l => l.startsWith('data:')).map(l => l.slice(5).trim()).join('');
+      buffer = buffer.slice(end + 2);
+      if (!data || data === '[DONE]') continue;
+      let event; try { event = JSON.parse(data); } catch { continue; }
+      if (event.type === 'response.output_text.delta') { text += event.delta || ''; onProgress({ stage: 'writing', chars: text.length }); }
+      else if (['response.completed', 'response.incomplete', 'response.failed'].includes(event.type)) final = event.response;
+      else if (event.type === 'error') throw new Error(event.message || 'AI service reported an error. No changes were applied.');
+    }
+  }
+  return { data: final || { status: 'incomplete' }, text };
+}
+
+export async function getProposal(body, env, request = fetch, onProgress = null) {
   if (!env.OPENAI_API_KEY) throw new Error('AI is not connected. A server-side OpenAI API key must be configured.');
   const payload = makeRequest(body, env.OPENAI_MODEL || DEFAULT_MODEL);
+  if (onProgress) payload.stream = true;
   const response = await request('https://api.openai.com/v1/responses', {
     method: 'POST', headers: { Authorization: 'Bearer ' + env.OPENAI_API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify(payload), signal: AbortSignal.timeout(AI_TIMEOUT_MS)
@@ -78,9 +103,13 @@ export async function getProposal(body, env, request = fetch) {
     const messages = {401:'AI credentials were rejected. Check the server API key.',403:'This API project cannot access the selected model.',429:'AI rate or spending limit reached. Check the API account or retry later.'};
     throw new Error(messages[response.status] || `AI service returned HTTP ${response.status}. Retry or check the server configuration.`);
   }
-  const data = await response.json();
-  if (data.status && data.status !== 'completed') throw new Error('AI response was incomplete. Ask for a smaller change; no model changes were applied.');
-  const output = data.output_text || (data.output || []).flatMap(x=>x.content||[]).filter(x=>x.type==='output_text').map(x=>x.text).join('');
+  const streamed = onProgress && response.body && (response.headers.get('content-type') || '').includes('text/event-stream');
+  const { data, text } = streamed ? await readEventStream(response, onProgress) : { data: await response.json(), text: '' };
+  if (data.status && data.status !== 'completed') {
+    if (data.incomplete_details?.reason === 'max_output_tokens') throw new Error('The AI ran out of output space before finishing. Ask for a smaller change or split the datasheet by model; no model changes were applied.');
+    throw new Error('AI response was incomplete. Ask for a smaller change; no model changes were applied.');
+  }
+  const output = text || data.output_text || (data.output || []).flatMap(x=>x.content||[]).filter(x=>x.type==='output_text').map(x=>x.text).join('');
   if (!output) throw new Error('The model returned no configuration response. No changes were applied.');
   let result; try { result = JSON.parse(output); } catch { throw new Error('The AI response was not valid structured data. No changes were applied.'); }
   if (typeof result.reply !== 'string' || !Array.isArray(result.questions)) throw new Error('Unexpected AI response format.');
@@ -92,6 +121,23 @@ export async function getProposal(body, env, request = fetch) {
   return { reply: result.reply, questions: result.questions, proposal, model: payload.model };
 }
 
+// Streams progress lines, then one result or error line, as newline-delimited JSON.
+// Heartbeats keep proxies and browsers from dropping the connection during long reasoning.
+export function streamProposal(body, env, headers = {}, request = fetch) {
+  const { readable, writable } = new TransformStream(), writer = writable.getWriter(), encoder = new TextEncoder();
+  let closed = false, lastProgress = 0, lastStage = '';
+  const send = line => closed ? Promise.resolve() : writer.write(encoder.encode(JSON.stringify(line) + '\n')).catch(() => { closed = true; });
+  const heartbeat = setInterval(() => send({ type: 'ping' }), 15000);
+  const progress = p => { const now = Date.now(); if (p.stage === lastStage && now - lastProgress < 1500) return; lastProgress = now; lastStage = p.stage; send({ type: 'progress', ...p }); };
+  (async () => {
+    try { await send({ type: 'result', ...(await getProposal(body, env, request, progress)) }); }
+    catch (e) { await send({ type: 'error', error: e.name === 'TimeoutError' ? 'AI request timed out after 15 minutes. No changes were applied.' : e.message }); }
+    finally { clearInterval(heartbeat); closed = true; writer.close().catch(() => {}); }
+  })();
+  return new Response(readable, { status: 200, headers: { ...headers, 'Content-Type': 'application/x-ndjson', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
+}
+export const wantsStream = request => (request.headers.get('accept') || '').includes('application/x-ndjson');
+
 export async function handleAI(request, env) {
   const url=new URL(request.url), json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
   if (url.pathname==='/api/ai/status' && request.method==='GET') return json({configured:!!env.OPENAI_API_KEY,model:env.OPENAI_MODEL||DEFAULT_MODEL});
@@ -100,6 +146,6 @@ export async function handleAI(request, env) {
   if(!origin||origin!==url.origin)return json({error:'Request origin rejected.'},403);
   if(!env.OPENAI_API_KEY)return json({error:'AI is not connected. Configure the server-side OpenAI API key to enable chat.'},503);
   if(!request.headers.get('content-type')?.includes('application/json'))return json({error:'JSON required.'},415);
-  try {const text=await request.text();if(text.length>17*1024*1024)return json({error:'Request is too large.'},413);return json(await getProposal(JSON.parse(text),env));}
+  try {const text=await request.text();if(text.length>17*1024*1024)return json({error:'Request is too large.'},413);const body=JSON.parse(text);if(wantsStream(request))return streamProposal(body,env);return json(await getProposal(body,env));}
   catch(e){return json({error:e.name==='TimeoutError'?'AI request timed out. No changes were applied.':e.message},400)}
 }

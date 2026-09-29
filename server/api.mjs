@@ -1,4 +1,4 @@
-import { getProposal, DEFAULT_MODEL } from './ai.mjs';
+import { getProposal, streamProposal, wantsStream, DEFAULT_MODEL } from './ai.mjs';
 import { validateModel } from '../src/engine.js';
 
 const SESSION_COOKIE = 'dasco_session';
@@ -280,6 +280,7 @@ async function aiChat(request, env) {
     // Sales can ask questions but never receive model edits or send PDFs.
     if (session.role !== 'admin') body.scope = 'sales';
     if (body.scope === 'sales') delete body.pdf;
+    if (wantsStream(request)) return streamProposal(body, env, corsHeaders(request, env));
     return json(request, env, await getProposal(body, env));
   } catch (e) {
     return json(request, env, { error: e.name === 'TimeoutError' ? 'AI request timed out. No changes were applied.' : e.message }, 400);

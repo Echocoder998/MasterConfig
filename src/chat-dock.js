@@ -2,14 +2,14 @@ import {esc,$,toast} from './ui.js';
 import {clone,validateModel} from './engine.js';
 import {getSource} from './storage.js';
 import {apiCredentials,apiUrl} from './config.js';
+import {requestAi,progressText,AI_CLIENT_TIMEOUT_MS} from './ai-client.js';
 import {describeChanges} from './assistant.js';
-const TIMEOUT_MS=260000;
 const withoutChat=m=>{const x=clone(m);delete x.chatHistory;return JSON.stringify(x)};
 async function pdfData(d){let b;if(d.sourceId)b=await getSource(d.sourceId);else if(d.sourceUrl&&/^[\w-]+\.pdf$/.test(d.sourceUrl)){const r=await fetch(d.sourceUrl);if(r.ok)b=await r.blob()}if(!b)return null;if(!(b.type==='application/pdf'||/\.pdf$/i.test(d.sourceName||d.sourceUrl||'')))return null;if(b.size>10*1024*1024)throw new Error('AI PDF limit is 10 MB. Split the source by model and attach the smaller PDF.');return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve('data:application/pdf;base64,'+String(r.result).split(',')[1]);r.onerror=()=>reject(new Error('Could not read the source PDF.'));r.readAsDataURL(b)})}
 // Context from the host page: {kind:'admin',model,setModel,changed,renderPage} while editing a draft,
 // {kind:'sales',model,selections} in the configurator, or null to hide the dock.
 export function createChatDock({getContext,onStatus}){
- let open=false,busy=false,error='',input='',status=null,statusLoading=null,rulesOnly=false,questions=[],undo=null,abort=null,timer=null,startedAt=0,timedOut=false,contextKey='',focusInput=false;
+ let open=false,busy=false,error='',input='',status=null,statusLoading=null,rulesOnly=false,questions=[],undo=null,abort=null,timer=null,startedAt=0,timedOut=false,stage='',contextKey='',focusInput=false;
  const salesHistory=new Map();
  const keyOf=ctx=>ctx?ctx.kind+':'+ctx.model.id:'';
  const history=ctx=>ctx.kind==='admin'?(ctx.model.chatHistory||[]):(salesHistory.get(ctx.model.id)||[]);
@@ -27,7 +27,7 @@ export function createChatDock({getContext,onStatus}){
   const log=history(ctx),pending=questions.length?questions:(admin?ctx.model.reviewQuestions||[]:[]);
   const intro=admin?'Ask for changes to this model, e.g. “Move Range after Options”, “Add option XPK to Options” or “B7 cannot use XPK”. Changes are applied to this draft right away; nothing goes live until you save and activate.':'Ask about this product, e.g. “Which enclosures work with a Viton seal?” or “Why is option XPK unavailable?”. The AI sees your current selections.';
   el.innerHTML=`<section class="chat-panel" aria-label="Flow Mind AI"><div class="chat-head"><div><b>Flow Mind AI</b><span>${admin?'Editing draft':'Configuring'} · ${esc(ctx.model.name)}</span></div><button id="chat-toggle" class="chat-close" aria-expanded="true" aria-label="Collapse Flow Mind AI chat">✕</button></div>
-<div class="chat-log" id="chat-log" aria-live="polite">${status&&!status.configured?`<div class="info-panel"><b>AI connection not configured</b><p>Chat requires the server-side OpenAI API key.</p></div>`:''}${log.map(messageHtml).join('')||`<p class="help">${esc(intro)}</p>`}${busy?`<div class="chat-message from-assistant chat-working"><b>Flow Mind AI</b><p>${admin?'Reading the draft and datasheet':'Thinking'}… <span id="chat-elapsed">${seconds()}</span>s${admin?'. Large datasheets can take 3-4 minutes.':''}</p><button id="chat-cancel" class="text-button" type="button">Cancel</button></div>`:''}</div>
+<div class="chat-log" id="chat-log" aria-live="polite">${status&&!status.configured?`<div class="info-panel"><b>AI connection not configured</b><p>Chat requires the server-side OpenAI API key.</p></div>`:''}${log.map(messageHtml).join('')||`<p class="help">${esc(intro)}</p>`}${busy?`<div class="chat-message from-assistant chat-working"><b>Flow Mind AI</b><p><span id="chat-stage">${esc(stage)}</span>… <span id="chat-elapsed">${seconds()}</span>s${admin?'<br><small>Large datasheets can take several minutes. Avoid editing the draft until it finishes, or its changes will not apply.</small>':''}</p><button id="chat-cancel" class="text-button" type="button">Cancel</button></div>`:''}</div>
 ${error?`<div class="error-panel chat-note" role="alert">${esc(error)}</div>`:''}${pending.length&&!busy?`<div class="info-panel chat-note"><b>Needs clarification</b><ul>${pending.map(q=>'<li>'+esc(q)+'</li>').join('')}</ul></div>`:''}${undo&&admin&&undo.modelId===ctx.model.id&&!busy?`<div class="chat-undo chat-note"><span>AI changes applied to the draft.</span><button id="chat-undo" class="text-button" type="button">Undo</button></div>`:''}
 <form id="chat-form" class="chat-form">${admin?`<label class="check-label"><input id="chat-rules" type="checkbox" ${rulesOnly?'checked':''} ${busy?'disabled':''}> Change rules only</label>`:''}<textarea id="chat-input" rows="3" aria-label="Message the AI" ${busy||!status?.configured?'disabled':''} placeholder="${admin?'Describe a change to this model…':'Ask about this configuration…'}">${esc(input)}</textarea><button class="primary" type="submit" ${busy||!status?.configured?'disabled':''}>Send</button></form>
 <p class="chat-foot">${admin?'Sends this draft, recent chat and source PDF to OpenAI. Review changes before activation.':'Answers come from the model data. Confirm against the datasheet before ordering.'}</p></section>`;
@@ -47,15 +47,14 @@ ${error?`<div class="error-panel chat-note" role="alert">${esc(error)}</div>`:''
  async function send(){
   const ctx=getContext();const message=input.trim();if(!ctx||busy||!message)return;
   const admin=ctx.kind==='admin',modelId=ctx.model.id,base=clone(ctx.model),prior=history(ctx);
-  busy=true;error='';questions=[];undo=null;input='';setHistory(ctx,[...prior,{role:'user',text:message}]);if(admin)ctx.changed();render();
+  busy=true;stage=progressText(null);error='';questions=[];undo=null;input='';setHistory(ctx,[...prior,{role:'user',text:message}]);if(admin)ctx.changed();render();
   let timeout=null;
   try{
    const pdf=admin?await pdfData(base):null;
-   abort=new AbortController();startTimer();timeout=setTimeout(()=>{timedOut=true;abort?.abort()},TIMEOUT_MS);
+   abort=new AbortController();startTimer();timeout=setTimeout(()=>{timedOut=true;abort?.abort()},AI_CLIENT_TIMEOUT_MS);
    const body=admin?{model:base,message,history:prior,pdf,scope:rulesOnly?'rules':'model'}:{model:base,message,history:prior,scope:'sales',selections:ctx.selections?.()||''};
-   const r=await fetch(apiUrl('/api/ai/chat'),{method:'POST',credentials:apiCredentials(),headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:abort.signal});
-   let result=null;try{result=await r.json()}catch{}
-   if(!r.ok)throw new Error(result?.error||'AI request failed.');
+   const subject=admin?'draft and datasheet':'configuration';
+   const result=await requestAi(body,{signal:abort.signal,onProgress:p=>{stage=progressText(p,subject);const el=$('chat-stage');if(el)el.textContent=stage}});
    const now=getContext(),reply={role:'assistant',text:result.reply};
    questions=result.questions||[];
    if(!admin){salesHistory.set(modelId,[...(salesHistory.get(modelId)||[]),reply].slice(-30));return}
@@ -68,7 +67,7 @@ ${error?`<div class="error-panel chat-note" role="alert">${esc(error)}</div>`:''
     else{reply.changes=describeChanges(base,result.proposal);now.setModel({...result.proposal,adminInstructions:now.model.adminInstructions,chatHistory:now.model.chatHistory});undo={modelId,before:base}}
    }
    const target=getContext();setHistory(target,[...history(target),reply]);target.changed();target.renderPage();
-  }catch(e){error=e.name==='AbortError'?(timedOut?'AI request timed out. No changes were applied. Try a narrower request.':'AI request canceled. No changes were applied.'):e.message}
+  }catch(e){error=e.name==='AbortError'?(timedOut?'AI request timed out after 16 minutes. No changes were applied. Try a narrower request.':'AI request canceled. No changes were applied.'):e.message}
   finally{clearTimeout(timeout);stopTimer();busy=false;render()}
  }
  function reset(){if(busy)return;error='';questions=[];undo=null;input=''}

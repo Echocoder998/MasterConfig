@@ -12,7 +12,7 @@ http.createServer(async(req,res)=>{
   if(url.pathname.startsWith('/api/')){
    const chunks=[];let bytes=0;for await(const chunk of req){bytes+=chunk.length;if(bytes>17*1024*1024){res.writeHead(413);res.end('Request too large');return}chunks.push(chunk)}
    const request=new Request(url,{method:req.method,headers:req.headers,...(['GET','HEAD'].includes(req.method)?{}:{body:Buffer.concat(chunks)})});
-   const result=await handleAI(request,process.env);res.writeHead(result.status,Object.fromEntries(result.headers));res.end(Buffer.from(await result.arrayBuffer()));return;
+   const result=await handleAI(request,process.env);res.writeHead(result.status,Object.fromEntries(result.headers));if(result.body)for await(const chunk of result.body)res.write(chunk);res.end();return;
   }
   let name=decodeURIComponent(url.pathname);if(name==='/')name='/index.html';const file=path.resolve(root,'.'+name);
   if(!file.startsWith(root+path.sep)||file.includes(path.sep+'server'+path.sep)){res.writeHead(403);return res.end()}
