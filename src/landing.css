@@ -1,0 +1,103 @@
+/* Landing page and application header. */
+:root{--ds-red:#A80000;--ds-red-dark:#860000;--ds-charcoal:#1A1F24;--ds-text:#20262D;--ds-muted:#5F6973;--ds-bg:#F7F8F9;--ds-tech:#DCE5EA;--ds-grid:#E6ECEF;--ds-border:#D9DEE3;--ds-border-hover:#AEB9C2}
+body{background:var(--ds-bg)}
+
+/* Header */
+header.app-header{display:block;height:auto;min-height:0;padding:0;background:var(--ds-red);border-bottom:1px solid var(--ds-red-dark);color:#fff}
+.header-inner{max-width:1400px;margin:0 auto;padding:10px clamp(16px,4vw,48px);display:flex;align-items:center;gap:28px}
+.app-header .brand{flex:0 1 300px;min-width:0;background:none;border:0;padding:0;color:#fff;text-align:left;cursor:pointer;border-radius:2px}
+.app-header .brand img{display:block;width:100%;max-width:300px;height:auto;aspect-ratio:665/68}
+.app-header .brand span{display:block;font-size:10px;font-weight:700;letter-spacing:3px;margin:6px 0 0 5px;color:#fff}
+.app-header .header-label{font-size:12px;font-weight:700;letter-spacing:2.4px;color:#fff;padding-left:28px;border-left:1px solid #ffffff59;line-height:32px}
+.app-header .mode-switch{margin-left:auto}
+.app-header .quiet{background:transparent;color:#fff;border:1px solid #ffffffb3;border-radius:6px;padding:8px 16px;font-size:14px;font-weight:600;transition:background-color .16s,color .16s}
+.app-header .quiet:hover{background:#fff;color:var(--ds-red)}
+.app-header button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+/* Layout */
+.landing{background:var(--ds-bg);color:var(--ds-text);padding-bottom:clamp(40px,6vw,72px)}
+.landing-container{max-width:1400px;margin:0 auto;padding-inline:clamp(16px,4vw,48px)}
+.landing-hero{display:grid;grid-template-columns:minmax(0,55fr) minmax(0,45fr);align-items:center;gap:clamp(32px,5vw,72px);padding-top:clamp(40px,6vw,80px);padding-bottom:clamp(40px,5vw,64px)}
+.landing-copy{max-width:680px}
+.landing-eyebrow,.feature-eyebrow{margin:0;font-size:12px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--ds-red)}
+.landing h1{margin:14px 0 18px;font-size:clamp(32px,3.3vw,46px);line-height:1.08;letter-spacing:-.02em;font-weight:800;color:var(--ds-text)}
+.landing h1 .accent{display:block;color:var(--ds-red)}
+.landing-lede{margin:0;max-width:560px;font-size:clamp(16px,1.25vw,18px);line-height:1.6;color:var(--ds-muted)}
+.landing-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.landing-categories{display:flex;flex-wrap:wrap;gap:10px 0;list-style:none;margin:36px 0 0;padding:20px 0 0;border-top:1px solid var(--ds-border);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ds-muted)}
+.landing-categories li{padding:0 16px;border-left:1px solid var(--ds-border);line-height:1}
+.landing-categories li:first-child{padding-left:0;border-left:0}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:6px;border:1px solid transparent;font-size:15px;font-weight:600;line-height:1.2;transition:background-color .16s,border-color .16s,color .16s,transform .16s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:none}
+.btn:focus-visible,.prompt-chip:focus-visible,.app-header .brand:focus-visible{outline:3px solid var(--ds-red);outline-offset:3px}
+.app-header .brand:focus-visible{outline-color:#fff}
+.btn-red{background:var(--ds-red);border-color:var(--ds-red);color:#fff}
+.btn-red:hover{background:var(--ds-red-dark);border-color:var(--ds-red-dark)}
+.btn-outline{background:#fff;border-color:var(--ds-charcoal);color:var(--ds-charcoal)}
+.btn-outline:hover{background:var(--ds-charcoal);color:#fff}
+.btn-dark{background:#fff;border-color:var(--ds-charcoal);color:var(--ds-charcoal)}
+.btn-dark:hover{background:var(--ds-charcoal);color:#fff}
+
+/* Technical drawing */
+.landing-visual{min-width:0;border:1px solid var(--ds-border);border-radius:8px;background:#FBFCFD;overflow:hidden}
+.dwg{display:block;width:100%;height:auto}
+.dwg text{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+.dwg-line{stroke:#56636E;stroke-width:1.4;fill:none;stroke-linejoin:round}
+.dwg-fill rect,.dwg-fill circle,.dwg-fill path{fill:#fff}
+.dwg-fill path[fill=none]{fill:none}
+.dwg-thin{stroke:#8C99A4;stroke-width:.9;fill:none}
+.dwg-dim{stroke:#8C99A4;stroke-width:.8;fill:none}
+.dwg-label{font-size:10px;font-weight:700;letter-spacing:1.6px;fill:#3E4A55}
+.dwg-note{font-size:9px;letter-spacing:.8px;fill:#6F7B86}
+.dwg-needle{stroke:var(--ds-red);stroke-width:1.6;stroke-linecap:round}
+.dwg-flow{fill:none;stroke:var(--ds-red);stroke-width:2;stroke-dasharray:14 10;animation:dwg-flow 4s linear infinite}
+.dwg-flowmark{stroke:var(--ds-red);stroke-width:1.4;fill:var(--ds-red)}
+.dwg-pulse{fill:none;stroke:var(--ds-red);stroke-width:1.2;transform-box:fill-box;transform-origin:center;animation:dwg-pulse 3.6s ease-out infinite}
+.dwg-pulse-late{animation-delay:1.8s}
+.dwg-scan{fill:var(--ds-tech);opacity:.45;animation:dwg-scan 10s linear infinite}
+@keyframes dwg-flow{to{stroke-dashoffset:-48}}
+@keyframes dwg-pulse{0%{transform:scale(1);opacity:.8}70%,100%{transform:scale(3.2);opacity:0}}
+@keyframes dwg-scan{from{transform:translateX(0)}to{transform:translateX(680px)}}
+
+/* Feature cards */
+.landing-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,32px)}
+.feature-card{display:flex;flex-direction:column;align-items:flex-start;background:#fff;border:1px solid var(--ds-border);border-radius:8px;padding:clamp(24px,3vw,40px);transition:border-color .18s}
+.feature-card:hover,.feature-card:focus-within{border-color:var(--ds-border-hover)}
+.feature-card h2{margin:12px 0 12px;font-size:clamp(22px,2vw,28px);line-height:1.2;letter-spacing:-.01em;color:var(--ds-text)}
+.feature-card>p:not(.feature-eyebrow){margin:0;max-width:520px;color:var(--ds-muted);font-size:15px;line-height:1.6}
+.feature-card .btn{margin-top:auto}
+.feature-points{display:flex;flex-wrap:wrap;gap:10px 24px;list-style:none;margin:24px 0 32px;padding:0;font-size:14px;font-weight:600;color:var(--ds-text)}
+.feature-points li{display:flex;align-items:center;gap:8px}
+.feature-points li:before{content:'';width:10px;height:6px;margin-top:-3px;border-left:2px solid var(--ds-red);border-bottom:2px solid var(--ds-red);transform:rotate(-45deg)}
+.prompt-list{display:flex;flex-direction:column;align-items:flex-start;gap:8px;list-style:none;margin:24px 0 32px;padding:0}
+.prompt-chip{background:var(--ds-bg);border:1px solid var(--ds-border);border-radius:6px;padding:8px 12px;font-size:13px;color:var(--ds-muted);text-align:left;transition:border-color .16s,color .16s}
+.prompt-chip:before{content:'✦ ';color:var(--ds-red)}
+.prompt-chip:hover{border-color:var(--ds-border-hover);color:var(--ds-text)}
+
+/* Compact sign-in */
+.auth-card.auth-compact{max-width:420px;margin:48px auto;padding:28px 28px 20px;border-color:var(--ds-border)}
+.auth-compact h1{font-size:24px;letter-spacing:-.01em}
+.auth-compact .subtitle{font-size:14px;color:var(--ds-muted)}
+.auth-compact .text-button{margin-top:12px;padding:8px 0}
+
+/* Responsive */
+@media(max-width:1024px){.landing-hero{grid-template-columns:minmax(0,1fr) minmax(0,.8fr)}.landing-categories li{padding:0 12px}}
+@media(max-width:900px){.app-header .header-label{display:none}}
+@media(max-width:760px){
+.header-inner{gap:12px;padding:10px 16px}
+.app-header .brand{flex:1 1 auto}
+.app-header .brand img{max-width:220px}
+.app-header .brand span{font-size:9px;letter-spacing:2.4px}
+.app-header .quiet{padding:8px 12px;font-size:13px}
+.landing-hero{grid-template-columns:1fr;padding-top:32px;gap:32px}
+.landing-actions{flex-direction:column}
+.landing-actions .btn{width:100%}
+.landing-categories{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px 24px;font-size:10px;letter-spacing:1.6px}
+.landing-categories li,.landing-categories li:first-child{padding:0;border:0}
+.landing-features{grid-template-columns:1fr}
+.feature-card .btn{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.dwg-flow,.dwg-pulse,.dwg-scan{animation:none}.dwg-pulse,.dwg-scan{opacity:0}.btn,.btn:hover{transition:none;transform:none}}

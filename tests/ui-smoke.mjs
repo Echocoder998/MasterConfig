@@ -22,10 +22,17 @@ await context.route('**/api/ai/chat', async route => {
 });
 try {
   await page.goto((process.env.TEST_BASE_URL || 'http://127.0.0.1:3017'));
-  await page.locator('#model-select').waitFor();
-  assert.equal(await page.locator('.hero-logo').evaluate(el => getComputedStyle(el).animationName), 'none');
-  assert.equal(await page.locator('.hero-logo').evaluate(el => getComputedStyle(el).opacity), '1');
+  await page.getByRole('heading', { name: 'Industrial Instrumentation, Configured with Confidence.' }).waitFor();
+  assert.equal(await page.locator('.dwg-flow').evaluate(el => getComputedStyle(el).animationName), 'none');
+  assert.equal(await page.locator('#chat-dock').isHidden(), true);
   await page.screenshot({ path: 'verification/hero-desktop.png' });
+  await page.getByRole('button', { name: 'Help me select a thermowell.' }).click();
+  assert.equal(await page.getByLabel('Message the AI').inputValue(), 'Help me select a thermowell.');
+  assert.equal(await page.locator('#landing').isHidden(), true);
+  await page.getByRole('button', { name: 'Collapse Flow Mind AI chat' }).click();
+  await page.getByRole('button', { name: 'Daughtridge Sales Product Configurator home' }).click();
+  await page.getByRole('button', { name: 'Configure a Product' }).click();
+  await page.locator('#model-select').waitFor();
   await page.getByRole('button', { name: 'Admin', exact: true }).click();
   await page.getByRole('heading', { name: 'Model catalog', exact: true }).waitFor();
   await page.screenshot({ path: 'verification/catalog-desktop.png', fullPage: true });
@@ -92,7 +99,8 @@ try {
   const mobile = await context.newPage();
   await mobile.setViewportSize({ width: 390, height: 844 });
   await mobile.goto((process.env.TEST_BASE_URL || 'http://127.0.0.1:3017'));
-  await mobile.getByRole('heading', { name: 'Configure with confidence.' }).waitFor();
+  await mobile.getByRole('heading', { name: 'Industrial Instrumentation, Configured with Confidence.' }).waitFor();
+  assert(await mobile.getByRole('button', { name: 'Ask Flow Mind AI' }).isVisible());
   await mobile.screenshot({ path: 'verification/hero-mobile.png', fullPage: true });
   assert(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.deepEqual(errors, []);

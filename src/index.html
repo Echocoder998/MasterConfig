@@ -1,1 +1,108 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Daughtridge Sales | Product Configurator</title><meta name="theme-color" content="#a50000"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="improvements.css"></head><body><header><div class="brand"><img src="daughtridge-sales-logo.png" alt="Daughtridge Sales" width="665" height="68"><span>AN MCE COMPANY</span></div><div class="header-label">PRODUCT CONFIGURATOR</div><div class="mode-switch"><button id="config-mode" class="quiet">Configurator</button><button id="admin-mode" class="quiet">Admin</button></div></header><section class="entry-hero" id="entry-hero" aria-label="Welcome to Daughtridge Sales"><div class="hero-instrument"><span class="hero-light" aria-hidden="true"></span><img class="hero-logo" src="daughtridge-sales-logo.png" width="665" height="68" alt="Daughtridge Sales"></div><div class="hero-copy"><div class="eyebrow">PRECISION IN EVERY SELECTION</div><h2>Configure with confidence.</h2><p>Explore instrument options, check compatibility and build your product specification.</p><button id="hero-start" class="primary">Configure a product →</button></div></section><div id="app"><p class="loading" role="status">Loading model catalog...</p></div><div id="chat-dock" hidden></div><div id="toast" role="status" aria-live="polite"></div><script src="runtime-config.js"></script><script src="vendor/jszip.min.js"></script><script type="module" src="app.js"></script></body></html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Daughtridge Sales | Product Configurator</title><meta name="theme-color" content="#a80000"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="improvements.css"><link rel="stylesheet" href="landing.css"></head><body>
+<header class="app-header"><div class="header-inner"><button id="home-link" class="brand" type="button" aria-label="Daughtridge Sales Product Configurator home"><img src="daughtridge-sales-logo.png" alt="" width="665" height="68"><span>AN MCE COMPANY</span></button><div class="header-label">PRODUCT CONFIGURATOR</div><div class="mode-switch"><button id="signin-mode" class="quiet" hidden>Sign in</button><button id="admin-mode" class="quiet">Admin</button></div></div></header>
+<section class="landing" id="landing" aria-labelledby="landing-title">
+<div class="landing-hero landing-container">
+<div class="landing-copy">
+<p class="landing-eyebrow">Precision in every selection</p>
+<h1 id="landing-title">Industrial Instrumentation, <span class="accent">Configured with Confidence.</span></h1>
+<p class="landing-lede">Configure pressure, temperature, flow, level and control instrumentation using manufacturer-approved product data, compatibility checks and intelligent guidance.</p>
+<div class="landing-actions"><button id="cta-configure" class="btn btn-red" type="button">Configure a Product <span aria-hidden="true">→</span></button><button id="cta-chat" class="btn btn-outline" type="button"><span aria-hidden="true">✦</span> Ask Flow Mind AI <span aria-hidden="true">→</span></button></div>
+<ul class="landing-categories" aria-label="Instrument categories"><li>Pressure</li><li>Temperature</li><li>Flow</li><li>Level</li><li>Switches</li><li>Accessories</li></ul>
+</div>
+<div class="landing-visual">
+<svg class="dwg" viewBox="0 0 600 440" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+<defs>
+<pattern id="dwg-minor" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="#E6ECEF" stroke-width=".6"/></pattern>
+<pattern id="dwg-major" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="url(#dwg-minor)"/><path d="M50 0H0V50" fill="none" stroke="#DCE5EA" stroke-width="1"/></pattern>
+<marker id="dwg-arrow" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 1L7 4L0 7Z" fill="#8C99A4"/></marker>
+<clipPath id="dwg-clip"><rect x="8" y="8" width="584" height="424"/></clipPath>
+</defs>
+<rect width="600" height="440" fill="#FBFCFD"/>
+<rect x="8" y="8" width="584" height="424" fill="url(#dwg-major)" stroke="#C9D3DA"/>
+<g clip-path="url(#dwg-clip)"><rect class="dwg-scan" x="-70" y="8" width="70" height="424"/></g>
+<g class="dwg-note" text-anchor="middle"><text x="100" y="20">1</text><text x="250" y="20">2</text><text x="400" y="20">3</text><text x="550" y="20">4</text></g>
+
+<!-- general notes -->
+<g class="dwg-note"><text class="dwg-label" x="24" y="48">NOTES</text><text x="24" y="66">1. PROCESS CONNECTIONS 1/2" NPT U.N.O.</text><text x="24" y="80">2. DIMENSIONS IN MM.</text><text x="24" y="94">3. FLOW DIRECTION AS SHOWN.</text></g>
+<g class="dwg-thin"><path d="M24 54H80"/></g>
+
+<!-- process line -->
+<g class="dwg-line"><path d="M16 296H444M16 312H444"/><path d="M16 286V322M444 286V322"/></g>
+<path class="dwg-flow" d="M16 304H450"/>
+<g class="dwg-flowmark"><path d="M26 278H56"/><path d="M50 274L58 278L50 282Z"/></g>
+
+<!-- gate valve -->
+<g class="dwg-line dwg-fill"><path d="M52 290L66 304L52 318ZM80 290L66 304L80 318Z"/><path d="M66 304V278M57 278H75" fill="none"/></g>
+
+<!-- flow meter -->
+<g class="dwg-line dwg-fill"><rect x="130" y="284" width="6" height="40"/><rect x="204" y="284" width="6" height="40"/><rect x="136" y="290" width="68" height="28"/><path d="M170 290V262" fill="none"/><rect x="154" y="236" width="32" height="26" rx="3"/><rect x="161" y="243" width="18" height="10" rx="1"/></g>
+<text class="dwg-label" x="170" y="226" text-anchor="middle">FLOW</text>
+<g class="dwg-dim"><path d="M130 326V346M210 326V346"/><path d="M134 340H206" marker-start="url(#dwg-arrow)" marker-end="url(#dwg-arrow)"/></g>
+<text class="dwg-note" x="170" y="356" text-anchor="middle">120</text>
+
+<!-- pressure transmitter -->
+<g class="dwg-line dwg-fill"><path d="M270 296V212" fill="none"/><path d="M262 254H278L270 262ZM262 270H278L270 262Z"/><rect x="260" y="194" width="20" height="18" rx="2"/><circle cx="270" cy="174" r="20"/><circle cx="270" cy="174" r="11"/><path d="M290 174H304" fill="none"/></g>
+<text class="dwg-label" x="270" y="142" text-anchor="middle">PRESSURE</text>
+<g class="dwg-dim"><path d="M267 284L244 272H214"/></g>
+<text class="dwg-note" x="242" y="268" text-anchor="end">1/2" NPT</text>
+
+<!-- pressure gauge -->
+<g class="dwg-line dwg-fill"><path d="M340 296V262" fill="none"/><circle cx="340" cy="240" r="22"/></g>
+<g class="dwg-thin"><path d="M325 251L328 248M322 240H326M325 229L328 232M340 222V226M355 229L352 232M358 240H354"/></g>
+<path class="dwg-needle" d="M340 240L352 229"/>
+<circle cx="340" cy="240" r="2" fill="#56636E"/>
+
+<!-- thermowell -->
+<g class="dwg-line dwg-fill"><rect x="383" y="234" width="24" height="22" rx="3"/><rect x="389" y="256" width="12" height="12"/><rect x="391" y="268" width="8" height="42" rx="4"/></g>
+<text class="dwg-label" x="395" y="206" text-anchor="middle">TEMPERATURE</text>
+<g class="dwg-dim"><path d="M399 282H414"/></g>
+<text class="dwg-note" x="416" y="285">Ø12</text>
+
+<!-- vessel -->
+<g class="dwg-line dwg-fill"><path d="M450 110A40 20 0 0 1 530 110V340A40 20 0 0 1 450 340Z"/></g>
+<g class="dwg-thin"><path d="M450 110H530M450 340H530"/><path d="M456 220H524" stroke-dasharray="4 3"/><path d="M466 232H488M494 244H514M470 256H500"/></g>
+<path d="M484 210H496L490 218Z" fill="none" stroke="#56636E" stroke-width="1"/>
+
+<!-- level bridle -->
+<g class="dwg-line dwg-fill"><path d="M530 150H552M530 320H552" fill="none"/><rect x="552" y="140" width="8" height="190" rx="2"/><rect x="546" y="206" width="20" height="30" rx="2"/></g>
+<text class="dwg-label" x="556" y="130" text-anchor="middle">LEVEL</text>
+
+<!-- switch -->
+<g class="dwg-line dwg-fill"><path d="M490 90V64" fill="none"/><rect x="472" y="40" width="36" height="24" rx="2"/></g>
+<g class="dwg-line"><path d="M480 56L495 47" fill="none"/><circle cx="480" cy="56" r="1.8" fill="#56636E"/><circle cx="500" cy="56" r="1.8" fill="#fff"/></g>
+<text class="dwg-label" x="490" y="30" text-anchor="middle">SWITCHES</text>
+
+<!-- vessel height dimension -->
+<g class="dwg-dim"><path d="M566 90H586M566 360H586"/><path d="M580 94V356" marker-start="url(#dwg-arrow)" marker-end="url(#dwg-arrow)"/></g>
+<text class="dwg-note" x="0" y="0" text-anchor="middle" transform="translate(575 225) rotate(-90)">2400</text>
+
+<!-- active nodes -->
+<circle class="dwg-pulse" cx="270" cy="296" r="4"/><circle cx="270" cy="296" r="2.6" fill="#A80000"/>
+<circle class="dwg-pulse dwg-pulse-late" cx="450" cy="304" r="4"/><circle cx="450" cy="304" r="2.6" fill="#A80000"/>
+
+<!-- title block -->
+<g class="dwg-thin"><path d="M16 392H584M400 392V424M500 392V424"/></g>
+<text class="dwg-note" x="24" y="412">PROCESS INSTRUMENTATION · SCHEMATIC · NOT TO SCALE</text>
+<text class="dwg-note" x="450" y="412" text-anchor="middle">DWG PC-100</text>
+<text class="dwg-note" x="542" y="412" text-anchor="middle">REV A</text>
+</svg>
+</div>
+</div>
+<div class="landing-features landing-container">
+<article class="feature-card" aria-labelledby="feature-config-title">
+<p class="feature-eyebrow">Product Configurator</p>
+<h2 id="feature-config-title">Build the correct instrument specification.</h2>
+<p>Select a manufacturer and model, then configure compatible options, ranges, connections, materials and accessories.</p>
+<ul class="feature-points"><li>Manufacturer Data</li><li>Compatibility Rules</li><li>Part Number Builder</li></ul>
+<button id="card-configure" class="btn btn-red" type="button">Start Configuration <span aria-hidden="true">→</span></button>
+</article>
+<article class="feature-card" aria-labelledby="feature-ai-title">
+<p class="feature-eyebrow">Flow Mind AI</p>
+<h2 id="feature-ai-title">Your instrumentation knowledge assistant.</h2>
+<p>Ask technical questions, compare models, understand options or get help determining which product to configure.</p>
+<ul class="prompt-list" aria-label="Example questions"><li><button class="prompt-chip" type="button" data-prompt="Which pressure switch works for 300 PSI?">Which pressure switch works for 300 PSI?</button></li><li><button class="prompt-chip" type="button" data-prompt="What’s the difference between these two models?">What’s the difference between these two models?</button></li><li><button class="prompt-chip" type="button" data-prompt="Help me select a thermowell.">Help me select a thermowell.</button></li></ul>
+<button id="card-chat" class="btn btn-dark" type="button">Ask Flow Mind <span aria-hidden="true">→</span></button>
+</article>
+</div>
+</section>
+<div id="app"><p class="loading" role="status">Loading model catalog...</p></div><div id="chat-dock" hidden></div><div id="toast" role="status" aria-live="polite"></div><script src="runtime-config.js"></script><script src="vendor/jszip.min.js"></script><script type="module" src="app.js"></script></body></html>

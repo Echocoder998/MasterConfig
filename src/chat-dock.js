@@ -77,5 +77,5 @@ ${proposal&&admin?'<div class="info-panel chat-note"><b>Proposal ready for revie
   finally{clearTimeout(timeout);stopTimer();busy=false;render()}
  }
  function reset(){if(busy)return;error='';questions=[];undo=null;proposal=null;input=''}
- return {render,reset,historyFor:model=>clone(adminHistory.get(model.id)||model.chatHistory||[]),hasProposal:()=>!!proposal,isBusy:()=>busy,status:()=>status,checkStatus,ensureStatus:()=>status?Promise.resolve(status):checkStatus(),open(opts={}){if(opts.rulesOnly!==undefined)rulesOnly=opts.rulesOnly;if(opts.error!==undefined)error=opts.error;open=true;focusInput=true;render()}};
+ return {render,reset,historyFor:model=>clone(adminHistory.get(model.id)||model.chatHistory||[]),hasProposal:()=>!!proposal,isBusy:()=>busy,status:()=>status,checkStatus,ensureStatus:()=>status?Promise.resolve(status):checkStatus(),open(opts={}){if(opts.rulesOnly!==undefined)rulesOnly=opts.rulesOnly;if(opts.error!==undefined)error=opts.error;if(opts.input)input=opts.input;open=true;focusInput=true;render()}};
 }

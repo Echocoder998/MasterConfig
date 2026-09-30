@@ -17,12 +17,13 @@ await context.route('**/api/ai/chat',async r=>{
  await r.fulfill({json:{reply:'Review the proposal.',questions:['Check page 5.'],proposal}});
 });
 try {
- await page.goto((process.env.TEST_BASE_URL || 'http://127.0.0.1:3017'));await page.locator('#model-select').waitFor();
- await page.locator('#entry-hero.entered').waitFor();
- assert.equal(await page.locator('.hero-logo').evaluate(el=>getComputedStyle(el).animationName),'none');
+ await page.goto((process.env.TEST_BASE_URL || 'http://127.0.0.1:3017'));await page.getByRole('button',{name:'Configure a Product'}).click();await page.locator('#model-select').waitFor();
  await page.getByRole('button',{name:'Admin',exact:true}).click();
- await page.getByRole('button',{name:'Configurator',exact:true}).click();
- assert.equal(await page.locator('.hero-logo').evaluate(el=>getComputedStyle(el).animationName),'none');
+ await page.getByRole('button',{name:'Daughtridge Sales Product Configurator home'}).click();
+ assert(await page.locator('#landing').isVisible());
+ await page.getByRole('button',{name:'Ask Flow Mind AI'}).click();
+ await page.getByLabel('Message the AI').waitFor();
+ await page.getByRole('button',{name:'Collapse Flow Mind AI chat'}).click();
  await page.getByRole('button',{name:'Admin',exact:true}).click();
  await page.getByRole('button',{name:'Import datasheet',exact:true}).click();
  await page.locator('#upload-file').setInputFiles({name:'custom-ordering.csv',mimeType:'text/csv',buffer:Buffer.from('Part,Detail\nB4,Pressure switch\n')});
@@ -49,7 +50,7 @@ try {
  assert(await page.getByLabel('Change rules only').isChecked());
  await page.getByLabel('Message the AI').fill('Add a restriction');await page.getByRole('button',{name:'Send',exact:true}).click();
  await page.getByRole('dialog').waitFor();
- const other=await context.newPage();await other.goto((process.env.TEST_BASE_URL || 'http://127.0.0.1:3017'));await other.locator('#model-select').waitFor();
+ const other=await context.newPage();await other.goto((process.env.TEST_BASE_URL || 'http://127.0.0.1:3017'));await other.getByRole('button',{name:'Configure a Product'}).click();await other.locator('#model-select').waitFor();
  await other.evaluate(async id=>{const storage=await import('/storage.js');const models=await storage.loadCatalog();await storage.saveCatalog(models.map(m=>m.id===id?{...m,name:'Edited in another tab'}:m));},importId);
  await page.getByRole('button',{name:'Apply proposal',exact:true}).click();
  await page.getByText('The saved model changed elsewhere.',{exact:false}).waitFor();
@@ -59,12 +60,12 @@ try {
  await page.getByRole('button',{name:'Collapse Flow Mind AI chat'}).click();
  await page.getByRole('button',{name:'Save as draft',exact:true}).click();
  await page.getByText('Could not save: The catalog changed in another tab. Reload before saving.',{exact:true}).waitFor();
- await page.reload();await page.locator('#model-select').waitFor();await page.locator('#entry-hero.entered').waitFor();
+ await page.reload();await page.getByRole('heading',{name:'Industrial Instrumentation, Configured with Confidence.'}).waitFor();
  await page.setViewportSize({width:390,height:844});
  await page.screenshot({path:'verification/hero-mobile.png'});
  await page.getByRole('button',{name:'Admin',exact:true}).click();
  await page.getByLabel('Search models',{exact:true}).fill('B / D');
  await page.screenshot({path:'verification/catalog-mobile.png',fullPage:true});
  assert.deepEqual(errors,[]);
- console.log('Additional browser checks passed: one-time animation, CSV/PDF AI imports, additions-only review, discard, unsaved application, saved source, rules-only preview, cross-tab stale blocking and save conflict.');
+ console.log('Additional browser checks passed: landing navigation, CSV/PDF AI imports, additions-only review, discard, unsaved application, saved source, rules-only preview, cross-tab stale blocking and save conflict.');
 } catch(error) {console.log(errors);console.log(await page.locator('body').innerText());throw error} finally {await browser.close()}
