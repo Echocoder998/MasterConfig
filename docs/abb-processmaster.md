@@ -57,6 +57,8 @@ Known source ambiguities are retained in the draft's Source tab:
 
 The export and Review screen request fluid/composition/conductivity, minimum/normal/maximum flow, operating pressure and temperature (including vacuum and cleaning), material compatibility, grounding and installation, ambient/hazardous-area conditions and final ABB ordering confirmation. The checklist identifies data still to supply; it does not claim that those engineering checks have passed. A nominal flange class or requested temperature design is not a validated operating-pressure rating.
 
+The Review screen presents this as a plain-language quote guide: four groups of information to send and a separate list of checks for sales and ABB. The original saved model notes and application checks remain available under **Technical details & configuration limits**. Downloads include the same guide followed by the complete technical details. This presentation also works for existing saved ABB models without changing the catalog or its rules.
+
 ## Implementation and verification
 
 `src/abb-profile.js` is the single source of profile data. `src/bundled-models.js` stages isolated drafts and adds missing profiles only to build-time seeds. `scripts/build.mjs` creates both the frontend/Worker seed and portable packet from that same source. Nothing reads or writes a production catalog during the build.
