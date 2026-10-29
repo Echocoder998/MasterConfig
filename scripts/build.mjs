@@ -1,5 +1,6 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { withBundledModels, bundledModels } from '../src/bundled-models.js';
 
 const siteDir = 'dist/site';
 const serverDir = 'dist/server';
@@ -24,6 +25,10 @@ await writeFile(path.join(serverDir, 'api.mjs'), api);
 await cp('src/engine.js', path.join(serverDir, 'engine.js'));
 
 const seedCatalog = JSON.parse(await readFile('src/catalog.json', 'utf8'));
+seedCatalog.models = withBundledModels(seedCatalog.models);
+await writeFile(path.join(siteDir, 'catalog.json'), JSON.stringify(seedCatalog, null, 2));
+await mkdir(path.join(siteDir, 'catalog-additions'), { recursive: true });
+for (const model of bundledModels) await writeFile(path.join(siteDir, 'catalog-additions', model.id + '.json'), JSON.stringify({schemaVersion:1,models:[{...model,status:'draft'}],sources:{}},null,2));
 const worker = `import {handleApi} from './api.mjs';\nconst seedCatalog=${JSON.stringify(seedCatalog)};\nexport default {async fetch(request,env){const url=new URL(request.url);if(url.pathname.startsWith('/api/'))return handleApi(request,env,{seedCatalog});return new Response('Not found',{status:404,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}})}};\n`;
 await writeFile(path.join(serverDir, 'index.js'), worker);
 

@@ -1,5 +1,13 @@
 # Daughtridge Product Configurator
 
+## ABB ProcessMaster flowmeter
+
+The bundled **ABB ProcessMaster FEP631** profile adds a source-backed electromagnetic flowmeter **RFQ workflow** with 21 fields and compatibility rules for size, flanges, liners, electrodes, grounding, housing/approvals, electronics and calibration. It produces a quote specification with an application-review checklist; it never presents a fabricated manufacturer part number.
+
+For an existing catalog, use **Admin → Model catalog → Add ABB ProcessMaster draft**, review the source and save the draft, then explicitly activate it after review. The add action never replaces an existing ABB entry or other customer models. New empty catalogs include it as a draft; existing cloud catalogs are not automatically changed. The build also emits a portable one-model draft packet under `dist/site/catalog-additions/`.
+
+See [ABB scope, sources, limitations and activation instructions](docs/abb-processmaster.md). This local implementation does not deploy the site or modify the production catalog.
+
 ## Proposal review, model management and entry animation
 
 AI datasheet imports, admin chat edits and rules requests now open a structured **Review proposed changes** screen. The comparison is generated from model data, grouped into model information, step sequence, fields/options, compatibility rules and other settings. It includes validation, source references and warnings for removed choices, ordering-code changes and restrictions. **Apply proposal** accepts the complete proposal into the **unsaved draft**; **Discard proposal** leaves model data unchanged. Save/activate remain separate, with the existing source-review requirement. Recent chat is kept separately until an explicit model save.

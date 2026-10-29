@@ -11,7 +11,7 @@
     "cf:migrate": "wrangler d1 migrations apply daughtridge-configurator --remote --config cloudflare/wrangler.jsonc",
     "deploy:worker": "npm run build && wrangler deploy --config cloudflare/wrangler.jsonc",
     "deploy:frontend": "npm run build && npx vercel deploy --prod",
-    "test:ui": "node tests/ui-smoke.mjs && node tests/ui-imports.mjs"
+    "test:ui": "node tests/ui-smoke.mjs && node tests/ui-imports.mjs && node tests/ui-abb.mjs"
   },
   "engines": {
     "node": ">=22"

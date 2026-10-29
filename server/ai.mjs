@@ -20,6 +20,7 @@ You may answer questions, ask for clarification, or propose a COMPLETE updated m
 For Ashcroft B/D/H switches, when asked, use Enclosure (B4, B7, D4, D7, H4), Switch element, Actuator seal, Options, Range. B/D ordering is on page 3, H4 on page 4, options page 5, B/D ranges page 2. H4 has its own element list and Viton seal. Do not use deadband table column headings as proof that an element can be ordered. 7500 in the H4 range table versus 7000 in the deadband table is an uncertainty, not permission to invent a range.
 Model shape: {id,name,manufacturer,subtitle,baseCode,revision,status,sourceName,notes,steps:[{id,label,fields:[fieldId]}],fields:[{id,label,type:"single"|"multi",required:boolean,codeOrder:number,prefix:string,options:[{code:string,label:string,description:string,sourcePage:number|string,orderCode?:string}],visibleWhen?:conditions}],rules:[{id,when:conditions,targetField,targetCodes:[string],action:"exclude"|"require",message,sourcePage}],defaultValues:{fieldId:string|[string]}}.
 Conditions are {field,op:"eq"|"neq"|"contains"|"in"|"gt"|"lt",value:string|[string]}. All conditions in a rule must match (AND). Every rule needs at least one condition in when, a targetField with existing targetCodes, and a message. If an option can never be ordered, leave it out of the options instead of writing a rule without a condition. Use separate rules for OR. Use in for code lists. Numeric gt/lt compares numeric CODES only, not labels or codes such as 600#. Field IDs use lowercase letters, digits and underscores, starting with a letter. Every field belongs to exactly one step. Review is added by the UI and must not be in steps. Codes are text, preserve leading zeros. codeOrder controls manufacturer code sequence independent of step order; 0 means a separate item. Same-position, same-prefix fields combine. Option codes must be unique within a field, but may repeat in different fields. Never double-prefix an X already in an option code.
+Models with outputMode "rfq" capture quote requests only: never assemble or imply a manufacturer part number. Keep their outputMode, sourceReferences, applicationReview and scope limitations.
 Keep current model id. If changing codes or fields, update affected rules and defaults. Output reply, proposal_json (JSON string or null), and questions. Never claim that schema validation proves manufacturer validity.`;
 
 export function normalizeProposal(proposed, current, questions = []) {
@@ -27,6 +28,11 @@ export function normalizeProposal(proposed, current, questions = []) {
   const next = repairFieldIds({ ...proposed, id: current.id, status: 'draft', adminInstructions: current.adminInstructions || '', chatHistory: current.chatHistory || [], reviewQuestions: questions });
   for (const key of ['sourceId', 'sourceName', 'sourceUrl', 'sourceText']) {
     if (current[key] !== undefined) next[key] = current[key]; else delete next[key];
+  }
+  // RFQ classification and source provenance cannot silently disappear in AI rewrites.
+  if (current.outputMode === 'rfq') {
+    next.outputMode = 'rfq';
+    for (const key of ['sourceReferences', 'applicationReview']) if (current[key] !== undefined) next[key] = structuredClone(current[key]);
   }
   next.defaultValues ||= {};
   const { model: salvaged, removed } = salvageModel(next);

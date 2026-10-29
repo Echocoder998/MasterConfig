@@ -10,3 +10,5 @@ cloudflare/.wrangler/
 !.env.example
 dist/
 verification/
+
+.vercel
